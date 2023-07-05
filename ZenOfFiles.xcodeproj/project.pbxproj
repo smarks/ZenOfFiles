@@ -1,0 +1,602 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2242B4042A55EBD3000CA027 /* ZenOfFilesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B4032A55EBD3000CA027 /* ZenOfFilesApp.swift */; };
+		2242B4062A55EBD3000CA027 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B4052A55EBD3000CA027 /* ContentView.swift */; };
+		2242B4082A55EBD4000CA027 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2242B4072A55EBD4000CA027 /* Assets.xcassets */; };
+		2242B40B2A55EBD4000CA027 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2242B40A2A55EBD4000CA027 /* Preview Assets.xcassets */; };
+		2242B40D2A55EBD4000CA027 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B40C2A55EBD4000CA027 /* Persistence.swift */; };
+		2242B4102A55EBD4000CA027 /* ZenOfFiles.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2242B40E2A55EBD4000CA027 /* ZenOfFiles.xcdatamodeld */; };
+		2242B41B2A55EBD5000CA027 /* ZenOfFilesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B41A2A55EBD5000CA027 /* ZenOfFilesTests.swift */; };
+		2242B4252A55EBD5000CA027 /* ZenOfFilesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B4242A55EBD5000CA027 /* ZenOfFilesUITests.swift */; };
+		2242B4272A55EBD5000CA027 /* ZenOfFilesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B4262A55EBD5000CA027 /* ZenOfFilesUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2242B4172A55EBD5000CA027 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2242B3F82A55EBD3000CA027 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2242B3FF2A55EBD3000CA027;
+			remoteInfo = ZenOfFiles;
+		};
+		2242B4212A55EBD5000CA027 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2242B3F82A55EBD3000CA027 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2242B3FF2A55EBD3000CA027;
+			remoteInfo = ZenOfFiles;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2242B4002A55EBD3000CA027 /* ZenOfFiles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZenOfFiles.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2242B4032A55EBD3000CA027 /* ZenOfFilesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenOfFilesApp.swift; sourceTree = "<group>"; };
+		2242B4052A55EBD3000CA027 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		2242B4072A55EBD4000CA027 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2242B40A2A55EBD4000CA027 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2242B40C2A55EBD4000CA027 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		2242B40F2A55EBD4000CA027 /* ZenOfFiles.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ZenOfFiles.xcdatamodel; sourceTree = "<group>"; };
+		2242B4112A55EBD4000CA027 /* ZenOfFiles.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZenOfFiles.entitlements; sourceTree = "<group>"; };
+		2242B4162A55EBD5000CA027 /* ZenOfFilesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZenOfFilesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2242B41A2A55EBD5000CA027 /* ZenOfFilesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenOfFilesTests.swift; sourceTree = "<group>"; };
+		2242B4202A55EBD5000CA027 /* ZenOfFilesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZenOfFilesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2242B4242A55EBD5000CA027 /* ZenOfFilesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenOfFilesUITests.swift; sourceTree = "<group>"; };
+		2242B4262A55EBD5000CA027 /* ZenOfFilesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenOfFilesUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2242B3FD2A55EBD3000CA027 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2242B4132A55EBD5000CA027 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2242B41D2A55EBD5000CA027 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2242B3F72A55EBD3000CA027 = {
+			isa = PBXGroup;
+			children = (
+				2242B4022A55EBD3000CA027 /* ZenOfFiles */,
+				2242B4192A55EBD5000CA027 /* ZenOfFilesTests */,
+				2242B4232A55EBD5000CA027 /* ZenOfFilesUITests */,
+				2242B4012A55EBD3000CA027 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2242B4012A55EBD3000CA027 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2242B4002A55EBD3000CA027 /* ZenOfFiles.app */,
+				2242B4162A55EBD5000CA027 /* ZenOfFilesTests.xctest */,
+				2242B4202A55EBD5000CA027 /* ZenOfFilesUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2242B4022A55EBD3000CA027 /* ZenOfFiles */ = {
+			isa = PBXGroup;
+			children = (
+				2242B4032A55EBD3000CA027 /* ZenOfFilesApp.swift */,
+				2242B4052A55EBD3000CA027 /* ContentView.swift */,
+				2242B4072A55EBD4000CA027 /* Assets.xcassets */,
+				2242B40C2A55EBD4000CA027 /* Persistence.swift */,
+				2242B4112A55EBD4000CA027 /* ZenOfFiles.entitlements */,
+				2242B40E2A55EBD4000CA027 /* ZenOfFiles.xcdatamodeld */,
+				2242B4092A55EBD4000CA027 /* Preview Content */,
+			);
+			path = ZenOfFiles;
+			sourceTree = "<group>";
+		};
+		2242B4092A55EBD4000CA027 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				2242B40A2A55EBD4000CA027 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2242B4192A55EBD5000CA027 /* ZenOfFilesTests */ = {
+			isa = PBXGroup;
+			children = (
+				2242B41A2A55EBD5000CA027 /* ZenOfFilesTests.swift */,
+			);
+			path = ZenOfFilesTests;
+			sourceTree = "<group>";
+		};
+		2242B4232A55EBD5000CA027 /* ZenOfFilesUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2242B4242A55EBD5000CA027 /* ZenOfFilesUITests.swift */,
+				2242B4262A55EBD5000CA027 /* ZenOfFilesUITestsLaunchTests.swift */,
+			);
+			path = ZenOfFilesUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2242B3FF2A55EBD3000CA027 /* ZenOfFiles */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2242B42A2A55EBD5000CA027 /* Build configuration list for PBXNativeTarget "ZenOfFiles" */;
+			buildPhases = (
+				2242B3FC2A55EBD3000CA027 /* Sources */,
+				2242B3FD2A55EBD3000CA027 /* Frameworks */,
+				2242B3FE2A55EBD3000CA027 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ZenOfFiles;
+			productName = ZenOfFiles;
+			productReference = 2242B4002A55EBD3000CA027 /* ZenOfFiles.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2242B4152A55EBD5000CA027 /* ZenOfFilesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2242B42D2A55EBD5000CA027 /* Build configuration list for PBXNativeTarget "ZenOfFilesTests" */;
+			buildPhases = (
+				2242B4122A55EBD5000CA027 /* Sources */,
+				2242B4132A55EBD5000CA027 /* Frameworks */,
+				2242B4142A55EBD5000CA027 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2242B4182A55EBD5000CA027 /* PBXTargetDependency */,
+			);
+			name = ZenOfFilesTests;
+			productName = ZenOfFilesTests;
+			productReference = 2242B4162A55EBD5000CA027 /* ZenOfFilesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2242B41F2A55EBD5000CA027 /* ZenOfFilesUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2242B4302A55EBD5000CA027 /* Build configuration list for PBXNativeTarget "ZenOfFilesUITests" */;
+			buildPhases = (
+				2242B41C2A55EBD5000CA027 /* Sources */,
+				2242B41D2A55EBD5000CA027 /* Frameworks */,
+				2242B41E2A55EBD5000CA027 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2242B4222A55EBD5000CA027 /* PBXTargetDependency */,
+			);
+			name = ZenOfFilesUITests;
+			productName = ZenOfFilesUITests;
+			productReference = 2242B4202A55EBD5000CA027 /* ZenOfFilesUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2242B3F82A55EBD3000CA027 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					2242B3FF2A55EBD3000CA027 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					2242B4152A55EBD5000CA027 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 2242B3FF2A55EBD3000CA027;
+					};
+					2242B41F2A55EBD5000CA027 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 2242B3FF2A55EBD3000CA027;
+					};
+				};
+			};
+			buildConfigurationList = 2242B3FB2A55EBD3000CA027 /* Build configuration list for PBXProject "ZenOfFiles" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2242B3F72A55EBD3000CA027;
+			productRefGroup = 2242B4012A55EBD3000CA027 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2242B3FF2A55EBD3000CA027 /* ZenOfFiles */,
+				2242B4152A55EBD5000CA027 /* ZenOfFilesTests */,
+				2242B41F2A55EBD5000CA027 /* ZenOfFilesUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2242B3FE2A55EBD3000CA027 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2242B40B2A55EBD4000CA027 /* Preview Assets.xcassets in Resources */,
+				2242B4082A55EBD4000CA027 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2242B4142A55EBD5000CA027 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2242B41E2A55EBD5000CA027 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2242B3FC2A55EBD3000CA027 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2242B4102A55EBD4000CA027 /* ZenOfFiles.xcdatamodeld in Sources */,
+				2242B40D2A55EBD4000CA027 /* Persistence.swift in Sources */,
+				2242B4062A55EBD3000CA027 /* ContentView.swift in Sources */,
+				2242B4042A55EBD3000CA027 /* ZenOfFilesApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2242B4122A55EBD5000CA027 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2242B41B2A55EBD5000CA027 /* ZenOfFilesTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2242B41C2A55EBD5000CA027 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2242B4252A55EBD5000CA027 /* ZenOfFilesUITests.swift in Sources */,
+				2242B4272A55EBD5000CA027 /* ZenOfFilesUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2242B4182A55EBD5000CA027 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2242B3FF2A55EBD3000CA027 /* ZenOfFiles */;
+			targetProxy = 2242B4172A55EBD5000CA027 /* PBXContainerItemProxy */;
+		};
+		2242B4222A55EBD5000CA027 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2242B3FF2A55EBD3000CA027 /* ZenOfFiles */;
+			targetProxy = 2242B4212A55EBD5000CA027 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2242B4282A55EBD5000CA027 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2242B4292A55EBD5000CA027 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		2242B42B2A55EBD5000CA027 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ZenOfFiles/ZenOfFiles.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ZenOfFiles/Preview Content\"";
+				DEVELOPMENT_TEAM = NJ55UC9QDK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = origamisoftware.ZenOfFiles;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		2242B42C2A55EBD5000CA027 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ZenOfFiles/ZenOfFiles.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ZenOfFiles/Preview Content\"";
+				DEVELOPMENT_TEAM = NJ55UC9QDK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = origamisoftware.ZenOfFiles;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		2242B42E2A55EBD5000CA027 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NJ55UC9QDK;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = origamisoftware.ZenOfFilesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ZenOfFiles.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ZenOfFiles";
+			};
+			name = Debug;
+		};
+		2242B42F2A55EBD5000CA027 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NJ55UC9QDK;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = origamisoftware.ZenOfFilesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ZenOfFiles.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ZenOfFiles";
+			};
+			name = Release;
+		};
+		2242B4312A55EBD5000CA027 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NJ55UC9QDK;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = origamisoftware.ZenOfFilesUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = ZenOfFiles;
+			};
+			name = Debug;
+		};
+		2242B4322A55EBD5000CA027 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NJ55UC9QDK;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = origamisoftware.ZenOfFilesUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = ZenOfFiles;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2242B3FB2A55EBD3000CA027 /* Build configuration list for PBXProject "ZenOfFiles" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2242B4282A55EBD5000CA027 /* Debug */,
+				2242B4292A55EBD5000CA027 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2242B42A2A55EBD5000CA027 /* Build configuration list for PBXNativeTarget "ZenOfFiles" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2242B42B2A55EBD5000CA027 /* Debug */,
+				2242B42C2A55EBD5000CA027 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2242B42D2A55EBD5000CA027 /* Build configuration list for PBXNativeTarget "ZenOfFilesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2242B42E2A55EBD5000CA027 /* Debug */,
+				2242B42F2A55EBD5000CA027 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2242B4302A55EBD5000CA027 /* Build configuration list for PBXNativeTarget "ZenOfFilesUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2242B4312A55EBD5000CA027 /* Debug */,
+				2242B4322A55EBD5000CA027 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2242B40E2A55EBD4000CA027 /* ZenOfFiles.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2242B40F2A55EBD4000CA027 /* ZenOfFiles.xcdatamodel */,
+			);
+			currentVersion = 2242B40F2A55EBD4000CA027 /* ZenOfFiles.xcdatamodel */;
+			path = ZenOfFiles.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 2242B3F82A55EBD3000CA027 /* Project object */;
+}
