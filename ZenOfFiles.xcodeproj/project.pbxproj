@@ -16,6 +16,10 @@
 		2242B41B2A55EBD5000CA027 /* ZenOfFilesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B41A2A55EBD5000CA027 /* ZenOfFilesTests.swift */; };
 		2242B4252A55EBD5000CA027 /* ZenOfFilesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B4242A55EBD5000CA027 /* ZenOfFilesUITests.swift */; };
 		2242B4272A55EBD5000CA027 /* ZenOfFilesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B4262A55EBD5000CA027 /* ZenOfFilesUITestsLaunchTests.swift */; };
+		2242B4342A55FDEE000CA027 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B4332A55FDEE000CA027 /* Utilities.swift */; };
+		2242B4352A55FDEE000CA027 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B4332A55FDEE000CA027 /* Utilities.swift */; };
+		2242B4372A55FE5A000CA027 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B4362A55FE5A000CA027 /* Models.swift */; };
+		2242B4382A55FE5A000CA027 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B4362A55FE5A000CA027 /* Models.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,8 @@
 		2242B4202A55EBD5000CA027 /* ZenOfFilesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZenOfFilesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2242B4242A55EBD5000CA027 /* ZenOfFilesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenOfFilesUITests.swift; sourceTree = "<group>"; };
 		2242B4262A55EBD5000CA027 /* ZenOfFilesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenOfFilesUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2242B4332A55FDEE000CA027 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		2242B4362A55FE5A000CA027 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +112,8 @@
 				2242B4112A55EBD4000CA027 /* ZenOfFiles.entitlements */,
 				2242B40E2A55EBD4000CA027 /* ZenOfFiles.xcdatamodeld */,
 				2242B4092A55EBD4000CA027 /* Preview Content */,
+				2242B4332A55FDEE000CA027 /* Utilities.swift */,
+				2242B4362A55FE5A000CA027 /* Models.swift */,
 			);
 			path = ZenOfFiles;
 			sourceTree = "<group>";
@@ -268,6 +276,8 @@
 				2242B4102A55EBD4000CA027 /* ZenOfFiles.xcdatamodeld in Sources */,
 				2242B40D2A55EBD4000CA027 /* Persistence.swift in Sources */,
 				2242B4062A55EBD3000CA027 /* ContentView.swift in Sources */,
+				2242B4372A55FE5A000CA027 /* Models.swift in Sources */,
+				2242B4342A55FDEE000CA027 /* Utilities.swift in Sources */,
 				2242B4042A55EBD3000CA027 /* ZenOfFilesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,6 +286,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2242B4382A55FE5A000CA027 /* Models.swift in Sources */,
+				2242B4352A55FDEE000CA027 /* Utilities.swift in Sources */,
 				2242B41B2A55EBD5000CA027 /* ZenOfFilesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
