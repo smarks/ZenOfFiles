@@ -9,7 +9,6 @@ import CoreData
 import SwiftUI
 import UniformTypeIdentifiers
 
-
 struct FileInfo: Identifiable {
     let id: String
 
@@ -22,8 +21,12 @@ struct FileInfo: Identifiable {
     let size: Int64
 }
 
+@MainActor
 class FoundDuplicates: ObservableObject {
     @Published var list: [FileInfo] = []
+    func append(_ fileInfo: FileInfo) {
+        list.append(fileInfo)
+    }
 }
 
 struct ContentView: View {
@@ -33,11 +36,10 @@ struct ContentView: View {
         TabView {
             FindDuplicationConfigurationView()
                 .tabItem {
-                    
                     Label("Find Duplicates", systemImage: "circle")
                 }
                 .environmentObject(duplicates)
-           
+
             OrganizeFilesConfigurationView()
                 .tabItem {
                     Label("Organize Files", systemImage: "circle")
@@ -120,22 +122,23 @@ struct FindDuplicationConfigurationView: View {
                 Spacer()
                 Button("Find Duplicates") {
                     Task {
-                        await findDuplicates(config: findDuplicatesConfigurationSettings, dupList:duplicates)
+                        await  findDuplicateFiles(config:findDuplicatesConfigurationSettings,  dupList: duplicates)
                     }
                 }.disabled(findDuplicatesConfigurationSettings.selectedDirectory == nil)
             }
 
         }.formStyle(.grouped) // end form
     }
+
+  
 } // end of FindDuplicationConfigurationView
 
-
 struct ConsoleView: View {
-    
     @State private var count = 0
     @State private var selection: String? = ""
     @EnvironmentObject var duplicates: FoundDuplicates
-    
+    private let pastboard = NSPasteboard.general
+
     @State var findDuplicatesConfigurationSettings = FindDuplicatesConfigurationSettings()
 
     @State private var order = [KeyPathComparator(\FileInfo.id)]
@@ -144,6 +147,7 @@ struct ConsoleView: View {
         HStack {
             Button {
                 print("Copy \(duplicates.list.count)")
+                
 
             } label: {
                 Image(systemName: "square.and.arrow.down")
@@ -174,9 +178,11 @@ struct ConsoleView: View {
                 TableRow(duplicate)
                     .contextMenu {
                         Button("Copy") {
+                          
+                            pastboard.setString(duplicate.path, forType: .string)
                             print(duplicate)
-                    
                         }
+                        
                     }
             }
         }.onChange(of: order) { newOrder in

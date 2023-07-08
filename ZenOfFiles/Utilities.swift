@@ -31,9 +31,9 @@ func copyFile(at sourceURL: URL, to destinationURL: URL) throws {
     try fileManager.copyItem(at: sourceURL, to: destinationURL)
 }
 
-func sha256Checksum(forFileAtPath path: URL) throws -> String? {
+func getSha256Checksum(forFileAtPath path: URL) throws -> String? {
     // Open the file for reading
-
+    print("opening: \(path)")
     let file = try FileHandle(forReadingFrom: path)
 
     // Initialize the SHA-256 context
@@ -117,7 +117,7 @@ func getFileDestination(fileURL: URL, destinationBase: URL, fileManager: FileMan
 
 func areFilesTheSame(destinationURL: URL, incoming_file_checksum: String) throws -> Bool {
     // is it the same?
-    let checksum_of_existing_file = try sha256Checksum(forFileAtPath: destinationURL)
+    let checksum_of_existing_file = try getSha256Checksum(forFileAtPath: destinationURL)
     if checksum_of_existing_file == incoming_file_checksum {
         return true
     } else {
@@ -132,7 +132,7 @@ func getNewName(fileURL: URL, destinationURL: URL, incoming_file_checksum: Strin
 }
 
 func processFile(fileURL: URL, destinationBase: URL, fileManager: FileManager, existing_files_checksum: inout Set<String>) throws {
-    if let incoming_file_checksum = try sha256Checksum(forFileAtPath: fileURL) {
+    if let incoming_file_checksum = try getSha256Checksum(forFileAtPath: fileURL) {
         if existing_files_checksum.contains(incoming_file_checksum) == false {
             existing_files_checksum.insert(incoming_file_checksum)
             do {
@@ -170,9 +170,8 @@ func checkForDuplicates(fileURL: URL,
                         fileManager: FileManager,
                         existing_files_checksum: inout [String: String],
                         listOfDuplicates: inout ItemList
-
 ) throws {
-    if let checksum = try sha256Checksum(forFileAtPath: fileURL) {
+    if let checksum = try getSha256Checksum(forFileAtPath: fileURL) {
         if existing_files_checksum[checksum] != nil {
             // this keeps the longer file name
             print("# " + fileURL.absoluteString + " is a duiplicate of " + existing_files_checksum[checksum]!)
@@ -194,7 +193,7 @@ func checkForDuplicates(fileURL: URL,
 }
 
 func catalogFiles(fileURL: URL, fileManager: FileManager) throws {
-    if let checksum = try sha256Checksum(forFileAtPath: fileURL) {
+    if let checksum = try getSha256Checksum(forFileAtPath: fileURL) {
         let fileAttribute = try fileManager.attributesOfItem(atPath: fileURL.absoluteURL.path)
         let fileSize = fileAttribute[FileAttributeKey.size] as! Int64
         let filePath = fileURL.absoluteURL.path
@@ -234,7 +233,47 @@ func getExifData(from url: URL) -> [String: Any]? {
     return exif
 }
 
-func findDuplicates(config: FindDuplicatesConfigurationSettings,  dupList: FoundDuplicates) async {
+func findDuplicateFiles(config: FindDuplicatesConfigurationSettings, dupList: FoundDuplicates) async {
+    let resourceKeys = Set<URLResourceKey>([.nameKey, .isDirectoryKey])
+    var existingFilesChecksumMap: [String: String] = [:]
+    var existingFilesChecksumSet = Set<String>()
+    let fileManager = FileManager.default
+    let destinationBase = config.selectedDirectory
+    var count = 1
+
+    if let startingBase = config.selectedDirectory {
+        let urlResourceKeyArray = Array(resourceKeys)
+        let directoryEnumerator = fileManager.enumerator(at: startingBase, includingPropertiesForKeys: urlResourceKeyArray, options: .skipsHiddenFiles)!
+
+        for case let fileURL as URL in directoryEnumerator {
+            // if hasAllowedExtension(fileURL: fileURL, allowedExtensions: image_extensions), let bigEnough = try? isBigEnough(fileURL: fileURL, fileManager: fileManager), bigEnough {
+            do {
+               
+                if isDirectory(fileManager: fileManager, url: fileURL) == false {
+                    let checksumValue = try getSha256Checksum(forFileAtPath: fileURL)
+                    let fileAttribute = try fileManager.attributesOfItem(atPath: fileURL.absoluteURL.path)
+                    let fileSize = fileAttribute[FileAttributeKey.size] as! Int64
+                    
+                    let fileInfo = try FileInfo(id: UUID().uuidString,
+                                                name: fileURL.lastPathComponent,
+                                                path: fileURL.path,
+                                                url: fileURL.absoluteString,
+                                                checksum: "\(checksumValue!)",
+                                                dateModified: Date(),
+                                                dateCreated: Date(),
+                                                size: fileSize)
+                    
+                    await dupList.append(fileInfo)
+                    count = count + 1
+                }
+            } catch {
+                print("Error processing file at \(fileURL): \(error)")
+            }
+        }
+    }
+}
+
+func findDuplicates(config: FindDuplicatesConfigurationSettings, dupList: FoundDuplicates) async {
     let image_extensions = ["raw",
                             "heic",
                             "heif",
@@ -275,7 +314,7 @@ func findDuplicates(config: FindDuplicatesConfigurationSettings,  dupList: Found
                                                 dateModified: Date(),
                                                 dateCreated: Date(),
                                                 size: 100)
-                    dupList.list.append(fileInfo)
+                    await dupList.append(fileInfo)
                     count = count + 1
 
                 } catch {
