@@ -20,6 +20,8 @@
 		2242B4352A55FDEE000CA027 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B4332A55FDEE000CA027 /* Utilities.swift */; };
 		2242B4372A55FE5A000CA027 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B4362A55FE5A000CA027 /* Models.swift */; };
 		2242B4382A55FE5A000CA027 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B4362A55FE5A000CA027 /* Models.swift */; };
+		2242B5292A5B3CAB000CA027 /* OutputConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B5282A5B3CAB000CA027 /* OutputConsoleView.swift */; };
+		2242B52A2A5B3CAB000CA027 /* OutputConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B5282A5B3CAB000CA027 /* OutputConsoleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,7 @@
 		2242B4262A55EBD5000CA027 /* ZenOfFilesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenOfFilesUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2242B4332A55FDEE000CA027 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		2242B4362A55FE5A000CA027 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		2242B5282A5B3CAB000CA027 /* OutputConsoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputConsoleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +110,7 @@
 			children = (
 				2242B4032A55EBD3000CA027 /* ZenOfFilesApp.swift */,
 				2242B4052A55EBD3000CA027 /* ContentView.swift */,
+				2242B5282A5B3CAB000CA027 /* OutputConsoleView.swift */,
 				2242B4072A55EBD4000CA027 /* Assets.xcassets */,
 				2242B40C2A55EBD4000CA027 /* Persistence.swift */,
 				2242B4112A55EBD4000CA027 /* ZenOfFiles.entitlements */,
@@ -276,6 +280,7 @@
 				2242B4102A55EBD4000CA027 /* ZenOfFiles.xcdatamodeld in Sources */,
 				2242B40D2A55EBD4000CA027 /* Persistence.swift in Sources */,
 				2242B4062A55EBD3000CA027 /* ContentView.swift in Sources */,
+				2242B5292A5B3CAB000CA027 /* OutputConsoleView.swift in Sources */,
 				2242B4372A55FE5A000CA027 /* Models.swift in Sources */,
 				2242B4342A55FDEE000CA027 /* Utilities.swift in Sources */,
 				2242B4042A55EBD3000CA027 /* ZenOfFilesApp.swift in Sources */,
@@ -287,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2242B4382A55FE5A000CA027 /* Models.swift in Sources */,
+				2242B52A2A5B3CAB000CA027 /* OutputConsoleView.swift in Sources */,
 				2242B4352A55FDEE000CA027 /* Utilities.swift in Sources */,
 				2242B41B2A55EBD5000CA027 /* ZenOfFilesTests.swift in Sources */,
 			);

@@ -4,19 +4,17 @@
 //
 //  Created by Spencer Marks on 7/5/23.
 //
-
-import SwiftUI
- 
+// Application class. Just renders the content view
+//
 
 import CommonCrypto
 import Foundation
+import ImageIO
+import SwiftUI
 import UniformTypeIdentifiers
 
-import ImageIO
 @main
 struct ZenOfFilesApp: App {
-    
-    @StateObject var duplicateFileList = ItemList()
     var body: some Scene {
         WindowGroup {
             ContentView()

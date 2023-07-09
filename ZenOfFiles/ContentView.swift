@@ -9,28 +9,24 @@ import CoreData
 import SwiftUI
 import UniformTypeIdentifiers
 
-struct FileInfo: Identifiable {
-    let id: String
-
-    let name: String
-    let path: String
-    let url: String
-    let checksum: String
-    let dateModified: Date
-    let dateCreated: Date
-    let size: Int64
-}
-
+/**
+   List of files found by application using specified config values
+ */
 @MainActor
-class FoundDuplicates: ObservableObject {
+class FoundFiles: ObservableObject {
+
     @Published var list: [FileInfo] = []
+
     func append(_ fileInfo: FileInfo) {
         list.append(fileInfo)
     }
 }
 
+/**
+* show tabs for each peice of discrect funtionality
+*/
 struct ContentView: View {
-    @StateObject var duplicates = FoundDuplicates()
+    @StateObject var duplicates = FoundFiles()
 
     var body: some View {
         TabView {
@@ -45,10 +41,14 @@ struct ContentView: View {
                     Label("Organize Files", systemImage: "circle")
                 }
         }
+        .padding(15)
     }
 }
 
 struct SelectDirectory: View {
+    /**
+     * View for selecting a directory
+     */
     @Binding var selectedDirectory: URL?
 
     var body: some View {
@@ -76,12 +76,10 @@ struct SelectDirectory: View {
 }
 
 struct FindDuplicationConfigurationView: View {
-    @EnvironmentObject var duplicates: FoundDuplicates
+    @EnvironmentObject var duplicates: FoundFiles
 
     @State private var selection: String? = ""
-
     @State var findDuplicatesConfigurationSettings = FindDuplicatesConfigurationSettings()
-
     @State private var order: [KeyPathComparator<FileInfo>] = [
         .init(\.id, order: SortOrder.forward),
     ]
@@ -89,115 +87,50 @@ struct FindDuplicationConfigurationView: View {
     let name = "Configuration"
 
     var body: some View {
-        Form {
-            SelectDirectory(selectedDirectory: $findDuplicatesConfigurationSettings.selectedDirectory)
-
-            Toggle("look into sub directories", isOn: $findDuplicatesConfigurationSettings.useSubdirs)
-                .toggleStyle(.switch)
-
-            Toggle("use checksum (slow but 100% accurate)", isOn: $findDuplicatesConfigurationSettings.useChecksum)
-                .toggleStyle(.switch)
-
-            Toggle("use file name", isOn: $findDuplicatesConfigurationSettings.useFileName)
-                .toggleStyle(.switch)
-
-            Toggle("use file size", isOn: $findDuplicatesConfigurationSettings.useFileSize)
-                .toggleStyle(.switch)
-
-            Toggle("create delete script", isOn: $findDuplicatesConfigurationSettings.createDeleteFileScript)
-                .toggleStyle(.switch)
-
-            Toggle("delete by", isOn: $findDuplicatesConfigurationSettings.deleteFiles)
-                .toggleStyle(.switch)
-
-            VStack {
-                Text("Output")
-                ConsoleView().environmentObject(duplicates)
-            }
-
-            HStack {
-                Button("Quit") {
-                    exit(0)
-                }
-                Spacer()
-                Button("Find Duplicates") {
-                    Task {
-                        await  findDuplicateFiles(config:findDuplicatesConfigurationSettings,  dupList: duplicates)
-                    }
-                }.disabled(findDuplicatesConfigurationSettings.selectedDirectory == nil)
-            }
-
-        }.formStyle(.grouped) // end form
-    }
-
-  
-} // end of FindDuplicationConfigurationView
-
-struct ConsoleView: View {
-    @State private var count = 0
-    @State private var selection: String? = ""
-    @EnvironmentObject var duplicates: FoundDuplicates
-    private let pastboard = NSPasteboard.general
-
-    @State var findDuplicatesConfigurationSettings = FindDuplicatesConfigurationSettings()
-
-    @State private var order = [KeyPathComparator(\FileInfo.id)]
-
-    var body: some View {
         HStack {
-            Button {
-                print("Copy \(duplicates.list.count)")
-                
+            Form {
+                SelectDirectory(selectedDirectory: $findDuplicatesConfigurationSettings.selectedDirectory)
 
-            } label: {
-                Image(systemName: "square.and.arrow.down")
-            }
+                Toggle("look into sub directories", isOn: $findDuplicatesConfigurationSettings.useSubdirs)
+                    .toggleStyle(.switch)
+                    .padding(10)
 
-            Button {
-                print("Save \(duplicates.list.count)")
-                for item in duplicates.list {
-                    print(item)
-                }
-            } label: {
-                Image(systemName: "doc.on.doc")
-            }
+                Toggle("use checksum(slow but 100% accurate)", isOn: $findDuplicatesConfigurationSettings.useChecksum)
+                    .toggleStyle(.switch)
+                    .padding(10)
 
-        }.padding(10)
+                Toggle("use file name", isOn: $findDuplicatesConfigurationSettings.useFileName)
+                    .toggleStyle(.switch)
+                    .padding(10)
 
-        Table(selection: $selection, sortOrder: $order) {
-            //   TableColumn("Id", value: \.id)
-            TableColumn("Name", value: \.name)
-            TableColumn("Path", value: \.path) { Text($0.path) }
-            TableColumn("URL", value: \.url) { Text($0.url) }
-            TableColumn("Checksum", value: \.checksum) { Text("\($0.checksum)") }
-            TableColumn("Date Created", value: \.dateCreated) { Text("\($0.dateCreated)") }
-            TableColumn("Date Modified", value: \.dateModified) { Text("\($0.dateModified)") }
-            TableColumn("Size", value: \.size) { Text("\($0.size)") }
-        } rows: {
-            ForEach(duplicates.list) { duplicate in
-                TableRow(duplicate)
-                    .contextMenu {
-                        Button("Copy") {
-                          
-                            pastboard.setString(duplicate.path, forType: .string)
-                            print(duplicate)
-                        }
-                        
+                Toggle("use file size", isOn: $findDuplicatesConfigurationSettings.useFileSize)
+                    .toggleStyle(.switch)
+                    .padding(10)
+
+                Toggle("create delete script", isOn: $findDuplicatesConfigurationSettings.createDeleteFileScript)
+                    .toggleStyle(.switch)
+                    .padding(10)
+
+                Toggle("delete by", isOn: $findDuplicatesConfigurationSettings.deleteFiles)
+                    .toggleStyle(.switch)
+                    .padding(10)
+
+                HStack {
+                    Button("Quit") {
+                        exit(0)
                     }
-            }
-        }.onChange(of: order) { newOrder in
-            duplicates.list.sort(using: newOrder)
-        }
+
+                    Button("Find Duplicates") {
+                        Task {
+                            await findDuplicateFiles(config: findDuplicatesConfigurationSettings, dupList: duplicates)
+                        }
+                    }.disabled(findDuplicatesConfigurationSettings.selectedDirectory == nil)
+                }
+
+            }.formStyle(.grouped)
+
+            OutputConsoleView()
+        }  
     }
 }
 
-func copyMe(fileInfo: FileInfo) {
-    print(fileInfo)
-}
-
-struct OrganizeFilesConfigurationView: View {
-    @State var selectedDirectory: URL?
-    var body: some View {
-        SelectDirectory(selectedDirectory: $selectedDirectory)
-    }
-}
