@@ -14,17 +14,27 @@ import UniformTypeIdentifiers
  */
 @MainActor
 class FoundFiles: ObservableObject {
-
     @Published var list: [FileInfo] = []
 
     func append(_ fileInfo: FileInfo) {
         list.append(fileInfo)
     }
+    func insert(_ fileInfo: FileInfo, location: Int) {
+         
+            list.insert(fileInfo, at:location)
+        
+    }
+
+    @Published var totalFiles = Float(0.0)
+
+    func totalFiles(_ totalFiles: Float) {
+        self.totalFiles = totalFiles
+    }
 }
 
 /**
-* show tabs for each peice of discrect funtionality
-*/
+ * show tabs for each peice of discrect funtionality
+ */
 struct ContentView: View {
     @StateObject var duplicates = FoundFiles()
 
@@ -77,60 +87,84 @@ struct SelectDirectory: View {
 
 struct FindDuplicationConfigurationView: View {
     @EnvironmentObject var duplicates: FoundFiles
-
-    @State private var selection: String? = ""
     @State var findDuplicatesConfigurationSettings = FindDuplicatesConfigurationSettings()
+    @State private var selection: String? = ""
     @State private var order: [KeyPathComparator<FileInfo>] = [
         .init(\.id, order: SortOrder.forward),
     ]
-
-    let name = "Configuration"
-
+    
+    // Cancellation context for the task
+    @State private var isCancelled = false
+    @State private var taskRunning = false
+   // @State private var timer = TimerView()
+    
     var body: some View {
-        HStack {
+        HSplitView {
             Form {
                 SelectDirectory(selectedDirectory: $findDuplicatesConfigurationSettings.selectedDirectory)
-
+                
                 Toggle("look into sub directories", isOn: $findDuplicatesConfigurationSettings.useSubdirs)
                     .toggleStyle(.switch)
                     .padding(10)
-
+                
                 Toggle("use checksum(slow but 100% accurate)", isOn: $findDuplicatesConfigurationSettings.useChecksum)
                     .toggleStyle(.switch)
                     .padding(10)
-
+                
                 Toggle("use file name", isOn: $findDuplicatesConfigurationSettings.useFileName)
                     .toggleStyle(.switch)
                     .padding(10)
-
+                
                 Toggle("use file size", isOn: $findDuplicatesConfigurationSettings.useFileSize)
                     .toggleStyle(.switch)
                     .padding(10)
-
+                
                 Toggle("create delete script", isOn: $findDuplicatesConfigurationSettings.createDeleteFileScript)
                     .toggleStyle(.switch)
                     .padding(10)
-
+                
                 Toggle("delete by", isOn: $findDuplicatesConfigurationSettings.deleteFiles)
                     .toggleStyle(.switch)
                     .padding(10)
-
+                
                 HStack {
-                    Button("Quit") {
-                        exit(0)
-                    }
-
-                    Button("Find Duplicates") {
+                    Button("Stop") {
+                        // exit(0)
+                        isCancelled = true
+                        
+                    }.disabled(!taskRunning)
+                    
+                    Button("Start") {
+                        duplicates.list = []
                         Task {
-                            await findDuplicateFiles(config: findDuplicatesConfigurationSettings, dupList: duplicates)
+                            isCancelled = false
+                            taskRunning = true
+                         //   timer.startTimer()
+                            await findDuplicateFiles(config: findDuplicatesConfigurationSettings, dupList: duplicates, isCancelled: $isCancelled)
+                            taskRunning = false
+                          //  timer.stopTimer()
+
                         }
-                    }.disabled(findDuplicatesConfigurationSettings.selectedDirectory == nil)
+                    }.disabled(findDuplicatesConfigurationSettings.selectedDirectory == nil || taskRunning )
                 }
-
+                
             }.formStyle(.grouped)
-
+            
             OutputConsoleView()
-        }  
+        }
     }
 }
-
+ 
+/**
+ * For Organize Files Funcationality - ui not started yet.
+ */
+struct OrganizeFilesConfigurationView: View {
+    @State var selectedDirectory: URL?
+    var body: some View {
+//        SelectDirectory(selectedDirectory: $selectedDirectory)
+        Label("Nothing here are at the moment, please come back later", systemImage: "figure.mind.and.body")
+            .font(.title)
+    }
+}
+       
+ 

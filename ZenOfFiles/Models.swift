@@ -23,7 +23,7 @@ struct FileInfo: Identifiable {
  
 
 
-struct FindDuplicatesConfigurationSettings {
+struct FindDuplicatesConfigurationSettings  {
   var id = UUID()
   var traverse_subdirectories: Bool = false
   var useChecksum: Bool = false

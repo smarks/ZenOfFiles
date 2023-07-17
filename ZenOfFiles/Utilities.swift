@@ -75,14 +75,18 @@ func getFileSize(fileURL: URL) throws -> Int64 {
     let fileAttribute = try FileManager.default.attributesOfItem(atPath: fileURL.absoluteURL.path)
     return fileAttribute[FileAttributeKey.size] as! Int64
 }
-
+ 
 /**
   * If the file has exif data return it, otherwise throw.
  */
 func getExifData(from url: URL) throws -> [String: Any]? {
     let imageSource = CGImageSourceCreateWithURL(url as CFURL, nil)
     let properties = CGImageSourceCopyPropertiesAtIndex(imageSource!, 0, nil) as? [String: Any]
-    return properties![kCGImagePropertyExifDictionary as String] as? [String: Any]
+    return properties?[kCGImagePropertyExifDictionary as String] as? [String: Any]
+}
+
+func isImage(file:URL) -> Bool {
+    return false
 }
 
 /**
@@ -91,21 +95,26 @@ func getExifData(from url: URL) throws -> [String: Any]? {
   * and faling that by asking the FileManager.
  */
 func getFileCreationDate(fileURL: URL) throws -> Date? {
-    do {
-        // Attempt to get the exif data
-        let exifData = try getExifData(from: fileURL)
-
-        // We have exif data, now attempt to get the digitized date from the exif data
-        let digitizedDateString = exifData?["DateTimeDigitized"] as! String
-
-        // Parse the digitized date string using a date formatter
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
-        let digitizedDate = dateFormatter.date(from: digitizedDateString)
-
-        return digitizedDate
-
-    } catch {
+   
+    if isImage(file: fileURL) {
+        do {
+            // Attempt to get the exif data
+            let exifData = try getExifData(from: fileURL)
+            
+            // We have exif data, now attempt to get the digitized date from the exif data
+            let digitizedDateString = exifData?["DateTimeDigitized"] as! String
+            
+            // Parse the digitized date string using a date formatter
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
+            let digitizedDate = dateFormatter.date(from: digitizedDateString)
+            
+            return digitizedDate
+            
+        } catch {
+            return try? FileManager.default.attributesOfItem(atPath: fileURL.path)[.creationDate] as? Date
+        }
+    } else {
         return try? FileManager.default.attributesOfItem(atPath: fileURL.path)[.creationDate] as? Date
     }
 }
@@ -113,7 +122,7 @@ func getFileCreationDate(fileURL: URL) throws -> Date? {
 /**
   * Get the date components from a files' creation date.
  */
-func getDateComponents(fileURL: URL) throws -> Array<String> {
+func getDateComponentsForCreationDate(fileURL: URL) throws -> Array<String> {
     let date = try getFileCreationDate(fileURL: fileURL) ?? Date()
     let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
     return [String(dateComponents.year!), String(dateComponents.month!), String(dateComponents.day!)]
@@ -130,7 +139,7 @@ func getDateComponents(fileURL: URL) throws -> Array<String> {
  */
 func getFileDestination(fileURL: URL, destinationBase: URL) throws -> URL {
     let fileName = fileURL.lastPathComponent
-    let dateComponents = try getDateComponents(fileURL: fileURL)
+    let dateComponents = try getDateComponentsForCreationDate(fileURL: fileURL)
     let destination = dateComponents.reduce(destinationBase) { $0.appendingPathComponent($1) }.appendingPathComponent(fileName).path
     return URL(fileURLWithPath: destination)
 }
@@ -169,41 +178,91 @@ func isDirectory(url: URL) -> Bool {
     }
 }
 
-func findDuplicateFiles(config: FindDuplicatesConfigurationSettings, dupList: FoundFiles) async {
-    let resourceKeys = Set<URLResourceKey>([.nameKey, .isDirectoryKey])
-    var existingFilesChecksumMap: [String: String] = [:]
-    var existingFilesChecksumSet = Set<String>()
-    let fileManager = FileManager.default
-    let destinationBase = config.selectedDirectory
-    var count = 1
+func getNumberOfFiles(startingDirectory: URL)  -> Int {
+    var count = 0
+    if let enumerator = FileManager.default.enumerator(at: startingDirectory, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles, .skipsPackageDescendants]) {
+        for case let fileURL as URL in enumerator {
+            do {
+                let fileAttributes = try fileURL.resourceValues(forKeys:[.isRegularFileKey])
+                if fileAttributes.isRegularFile! {
+                    count = count + 1
+                }
+            } catch { print(error, fileURL) }
+        }
+    }
+    return count
+}
 
+/**
+  * Main entry point for finding dupilicate files.
+ */
+func findDuplicateFiles(config: FindDuplicatesConfigurationSettings, dupList: FoundFiles, isCancelled: Binding<Bool>) async {
+
+    
+    let resourceKeys = Set<URLResourceKey>([.nameKey, .isDirectoryKey])
+    let fileManager = FileManager.default
+    var filesCatalog: [String:FileInfo] = [:]
+    var fileSizes: [Int64:[String] ] = [:]
+    var fileNames: [String:[String] ] = [:]
+    var fileChecksums: [String:[String]] = [:]
+    let NOT_YET_DETERMINED: String = "NYD"
+    var checksumValue: String = NOT_YET_DETERMINED
+    
     if let startingBase = config.selectedDirectory {
+        
         let urlResourceKeyArray = Array(resourceKeys)
         let directoryEnumerator = fileManager.enumerator(at: startingBase, includingPropertiesForKeys: urlResourceKeyArray, options: .skipsHiddenFiles)!
-
+        
         for case let fileURL as URL in directoryEnumerator {
+            if isCancelled.wrappedValue == true {
+                return
+            }
             // if hasAllowedExtension(fileURL: fileURL, allowedExtensions: image_extensions), let bigEnough = try? isBigEnough(fileURL: fileURL, fileManager: fileManager), bigEnough {
             do {
                 if isDirectory(url: fileURL) == false {
-                    let checksumValue = try getSha256Checksum(forFileAtPath: fileURL)
+                    
+                       
                     let fileAttribute = try fileManager.attributesOfItem(atPath: fileURL.absoluteURL.path)
                     let fileSize = fileAttribute[FileAttributeKey.size] as! Int64
-
+                    let modDate = fileAttribute[FileAttributeKey.modificationDate] as! Date
                     let fileInfo = FileInfo(id: UUID().uuidString,
-                                                name: fileURL.lastPathComponent,
-                                                path: fileURL.path,
-                                                url: fileURL.absoluteString,
-                                                checksum: "\(checksumValue!)",
-                                                dateModified: Date(),
-                                                dateCreated: Date(),
-                                                size: fileSize)
-
-                    await dupList.append(fileInfo)
-                    count = count + 1
+                                            name: fileURL.lastPathComponent,
+                                            path: fileURL.path,
+                                            url: fileURL.absoluteString,
+                                            checksum: "\(checksumValue)",
+                                            dateModified: modDate,
+                                            dateCreated: try getFileCreationDate(fileURL: fileURL) ?? Date.distantPast,
+                                            size: fileSize)
+                                        
+                    filesCatalog.updateValue(fileInfo, forKey: fileInfo.id)
+                   
+                    
+                    // update checksums
+                    if config.useChecksum {
+                        checksumValue = try getSha256Checksum(forFileAtPath: fileURL) ?? "ERROR"
+                        var sameChecksumList = fileChecksums[checksumValue] ?? []
+                        sameChecksumList.append(fileInfo.id)
+                        fileChecksums.updateValue(sameChecksumList, forKey: checksumValue)
+                    }
+                    
+                    // update dictionary of files with same size (key: size value: array of files' UUID as String who have same size)
+                    var sameFileSizesList = fileSizes[fileSize] ?? []
+                    sameFileSizesList.append(fileInfo.id)
+                    fileSizes.updateValue(sameFileSizesList, forKey: fileSize)
+                                           
+                    // update dictionary of files by name (key: filename value: array of files' UUID as String who have same id
+                    var sameFileNameList = fileNames[fileInfo.name] ?? []
+                    sameFileNameList.append(fileInfo.id)
+                    fileNames.updateValue(sameFileNameList, forKey: fileInfo.name)
+                    
+                   
+                        await dupList.insert(fileInfo, location: 0)
+                    
                 }
             } catch {
                 print("Error processing file at \(fileURL): \(error)")
             }
         }
     }
+    
 }

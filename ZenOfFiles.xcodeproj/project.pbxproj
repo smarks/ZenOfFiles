@@ -22,6 +22,8 @@
 		2242B4382A55FE5A000CA027 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B4362A55FE5A000CA027 /* Models.swift */; };
 		2242B5292A5B3CAB000CA027 /* OutputConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B5282A5B3CAB000CA027 /* OutputConsoleView.swift */; };
 		2242B52A2A5B3CAB000CA027 /* OutputConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B5282A5B3CAB000CA027 /* OutputConsoleView.swift */; };
+		22E41C792A5CCB780001E11B /* TImerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E41C782A5CCB780001E11B /* TImerView.swift */; };
+		22E41C7A2A5CCB780001E11B /* TImerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E41C782A5CCB780001E11B /* TImerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,7 @@
 		2242B4332A55FDEE000CA027 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		2242B4362A55FE5A000CA027 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		2242B5282A5B3CAB000CA027 /* OutputConsoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputConsoleView.swift; sourceTree = "<group>"; };
+		22E41C782A5CCB780001E11B /* TImerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TImerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +114,7 @@
 				2242B4032A55EBD3000CA027 /* ZenOfFilesApp.swift */,
 				2242B4052A55EBD3000CA027 /* ContentView.swift */,
 				2242B5282A5B3CAB000CA027 /* OutputConsoleView.swift */,
+				22E41C782A5CCB780001E11B /* TImerView.swift */,
 				2242B4072A55EBD4000CA027 /* Assets.xcassets */,
 				2242B40C2A55EBD4000CA027 /* Persistence.swift */,
 				2242B4112A55EBD4000CA027 /* ZenOfFiles.entitlements */,
@@ -283,6 +287,7 @@
 				2242B5292A5B3CAB000CA027 /* OutputConsoleView.swift in Sources */,
 				2242B4372A55FE5A000CA027 /* Models.swift in Sources */,
 				2242B4342A55FDEE000CA027 /* Utilities.swift in Sources */,
+				22E41C792A5CCB780001E11B /* TImerView.swift in Sources */,
 				2242B4042A55EBD3000CA027 /* ZenOfFilesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,6 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22E41C7A2A5CCB780001E11B /* TImerView.swift in Sources */,
 				2242B4382A55FE5A000CA027 /* Models.swift in Sources */,
 				2242B52A2A5B3CAB000CA027 /* OutputConsoleView.swift in Sources */,
 				2242B4352A55FDEE000CA027 /* Utilities.swift in Sources */,

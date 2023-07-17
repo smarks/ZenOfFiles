@@ -16,9 +16,9 @@ import UniformTypeIdentifiers
  */
 struct ControlPanel : View  {
     @EnvironmentObject var duplicates: FoundFiles
-
+   
+ 
     var body: some View {
-        
         HStack {
             // top of table 'control panel'
             Button {
@@ -36,6 +36,9 @@ struct ControlPanel : View  {
             } label: {
                 Image(systemName: "doc.on.doc")
             }
+            Text("File Count: \(duplicates.list.count)")
+            
+         
         }
     }
 }
@@ -44,21 +47,23 @@ struct ControlPanel : View  {
   * Table the shows found files
  */
 struct OutputConsoleView: View {
+    
     @State private var count = 0
     @State private var selection: String? = ""
     @EnvironmentObject var duplicates: FoundFiles
     private let pastboard = NSPasteboard.general
-
+    //private let timer:TimerView
+    
     @State var findDuplicatesConfigurationSettings = FindDuplicatesConfigurationSettings()
-
     @State private var order = [KeyPathComparator(\FileInfo.id)]
-
+    
+    
     var body: some View {
         VStack {
-           ControlPanel()
+           
+            ControlPanel( )
 
             Table(selection: $selection, sortOrder: $order) {
-                //   TableColumn("Id", value: \.id)
                 TableColumn("Name", value: \.name)
                 TableColumn("Path", value: \.path) { Text($0.path) }
                 TableColumn("URL", value: \.url) { Text($0.url) }
@@ -84,14 +89,3 @@ struct OutputConsoleView: View {
     }
 }
 
-
- 
-/**
- * For Organize Files Funcationality - ui not started yet.
- */
-struct OrganizeFilesConfigurationView: View {
-    @State var selectedDirectory: URL?
-    var body: some View {
-        SelectDirectory(selectedDirectory: $selectedDirectory)
-    }
-}
