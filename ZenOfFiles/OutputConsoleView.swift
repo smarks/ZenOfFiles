@@ -16,8 +16,8 @@ import UniformTypeIdentifiers
  */
 struct ControlPanel : View  {
     @EnvironmentObject var duplicates: FoundFiles
-   
- 
+    @ObservedObject  var timerManager : TimerManager
+
     var body: some View {
         HStack {
             // top of table 'control panel'
@@ -37,7 +37,11 @@ struct ControlPanel : View  {
                 Image(systemName: "doc.on.doc")
             }
             Text("File Count: \(duplicates.list.count)")
+            TimerDisplayView(timerManager: timerManager)
+
+
             
+           
          
         }
     }
@@ -47,21 +51,22 @@ struct ControlPanel : View  {
   * Table the shows found files
  */
 struct OutputConsoleView: View {
-    
+
+    private let pastboard = NSPasteboard.general
+
     @State private var count = 0
     @State private var selection: String? = ""
     @EnvironmentObject var duplicates: FoundFiles
-    private let pastboard = NSPasteboard.general
-    //private let timer:TimerView
-    
+ 
     @State var findDuplicatesConfigurationSettings = FindDuplicatesConfigurationSettings()
     @State private var order = [KeyPathComparator(\FileInfo.id)]
-    
+    @ObservedObject var timerManager : TimerManager
+
     
     var body: some View {
         VStack {
            
-            ControlPanel( )
+            ControlPanel(timerManager:timerManager)
 
             Table(selection: $selection, sortOrder: $order) {
                 TableColumn("Name", value: \.name)

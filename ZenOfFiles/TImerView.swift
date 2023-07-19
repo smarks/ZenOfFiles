@@ -7,29 +7,75 @@
 
 import Foundation
 import SwiftUI
-struct TimerView: View {
-    @State var startDate = Date.now
-    @State var timeElapsed: Int = 0
-       
-       // 1
-    @State  var timer:Timer.TimerPublisher
+import CoreData
 
-       
-       var body: some View {
-           Text("Time elapsed: \(timeElapsed) sec")
-               // 2
-               .onReceive(timer) { firedDate in
-                timeElapsed = Int(firedDate.timeIntervalSince(startDate))
 
-               }
-                
-       }
-    func stopTimer() {
-     //  self.$timer.upstream.connect.cancel
-    }
+class TimerManager: ObservableObject {
+    @Published var startTime: Date?
+    @Published var elapsedTime: TimeInterval = 0.0
+    @Published var isTimerRunning = false
     
+    private var timer: DispatchSourceTimer?
+
     func startTimer() {
-    //    self.timer  = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
+            startTime = Date()
+            elapsedTime = 0.0
+            isTimerRunning = true
+            
+            timer = DispatchSource.makeTimerSource(queue: DispatchQueue.global())
+            timer?.schedule(deadline: .now(), repeating: 1.0)
+            timer?.setEventHandler { [weak self] in
+                DispatchQueue.main.async {
+                    guard let startTime = self?.startTime else {
+                        self?.stopTimer()
+                        return
+                    }
+                    
+                    self?.elapsedTime = Date().timeIntervalSince(startTime)
+                }
+            }
+            timer?.resume()
+        }
+    
+    func stopTimer() {
+            timer?.cancel()
+            timer = nil
+            isTimerRunning = false
+        }
+    
+    func formattedElapsedTime() -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.unitsStyle = .positional
+        formatter.zeroFormattingBehavior = .pad
+        
+        return formatter.string(from: elapsedTime) ?? ""
     }
 }
 
+struct TimerDisplayView: View {
+    @ObservedObject var timerManager: TimerManager
+    
+    var body: some View {
+        Text("Elapsed Time: \(timerManager.formattedElapsedTime())")
+         
+            .padding()
+    }
+}
+
+struct TimerControlView: View {
+    @ObservedObject var timerManager: TimerManager
+    
+    var body: some View {
+        Button(action: {
+            if timerManager.isTimerRunning {
+                timerManager.stopTimer()
+            } else {
+                timerManager.startTimer()
+            }
+        }) {
+            Text(timerManager.isTimerRunning ? "Stop Timer" : "Start Timer")
+                
+        }
+    }
+}

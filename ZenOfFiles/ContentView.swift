@@ -96,8 +96,8 @@ struct FindDuplicationConfigurationView: View {
     // Cancellation context for the task
     @State private var isCancelled = false
     @State private var taskRunning = false
-   // @State private var timer = TimerView()
-    
+    @StateObject var timerManager = TimerManager()
+
     var body: some View {
         HSplitView {
             Form {
@@ -131,26 +131,25 @@ struct FindDuplicationConfigurationView: View {
                     Button("Stop") {
                         // exit(0)
                         isCancelled = true
-                        
-                    }.disabled(!taskRunning)
+                             timerManager.stopTimer()
+                     }.disabled(!taskRunning)
                     
                     Button("Start") {
+                    
                         duplicates.list = []
                         Task {
                             isCancelled = false
                             taskRunning = true
-                         //   timer.startTimer()
+                            timerManager.startTimer()
                             await findDuplicateFiles(config: findDuplicatesConfigurationSettings, dupList: duplicates, isCancelled: $isCancelled)
                             taskRunning = false
-                          //  timer.stopTimer()
-
                         }
                     }.disabled(findDuplicatesConfigurationSettings.selectedDirectory == nil || taskRunning )
                 }
                 
             }.formStyle(.grouped)
             
-            OutputConsoleView()
+            OutputConsoleView(timerManager: timerManager)
         }
     }
 }
