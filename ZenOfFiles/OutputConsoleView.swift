@@ -39,10 +39,6 @@ struct ControlPanel : View  {
             Text("File Count: \(duplicates.list.count)")
             TimerDisplayView(timerManager: timerManager)
 
-
-            
-           
-         
         }
     }
 }

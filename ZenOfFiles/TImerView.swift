@@ -57,8 +57,7 @@ struct TimerDisplayView: View {
     @ObservedObject var timerManager: TimerManager
     
     var body: some View {
-        Text("Elapsed Time: \(timerManager.formattedElapsedTime())")
-         
+        Text("Elapsed Time: \(timerManager.formattedElapsedTime())")         
             .padding()
     }
 }

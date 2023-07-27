@@ -75,7 +75,7 @@ func getFileSize(fileURL: URL) throws -> Int64 {
     let fileAttribute = try FileManager.default.attributesOfItem(atPath: fileURL.absoluteURL.path)
     return fileAttribute[FileAttributeKey.size] as! Int64
 }
- 
+
 /**
   * If the file has exif data return it, otherwise throw.
  */
@@ -85,7 +85,7 @@ func getExifData(from url: URL) throws -> [String: Any]? {
     return properties?[kCGImagePropertyExifDictionary as String] as? [String: Any]
 }
 
-func isImage(file:URL) -> Bool {
+func isImage(file: URL) -> Bool {
     return false
 }
 
@@ -95,22 +95,21 @@ func isImage(file:URL) -> Bool {
   * and faling that by asking the FileManager.
  */
 func getFileCreationDate(fileURL: URL) throws -> Date? {
-   
     if isImage(file: fileURL) {
         do {
             // Attempt to get the exif data
             let exifData = try getExifData(from: fileURL)
-            
+
             // We have exif data, now attempt to get the digitized date from the exif data
             let digitizedDateString = exifData?["DateTimeDigitized"] as! String
-            
+
             // Parse the digitized date string using a date formatter
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
             let digitizedDate = dateFormatter.date(from: digitizedDateString)
-            
+
             return digitizedDate
-            
+
         } catch {
             return try? FileManager.default.attributesOfItem(atPath: fileURL.path)[.creationDate] as? Date
         }
@@ -178,12 +177,12 @@ func isDirectory(url: URL) -> Bool {
     }
 }
 
-func getNumberOfFiles(startingDirectory: URL)  -> Int {
+func getNumberOfFiles(startingDirectory: URL) -> Int {
     var count = 0
     if let enumerator = FileManager.default.enumerator(at: startingDirectory, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles, .skipsPackageDescendants]) {
         for case let fileURL as URL in enumerator {
             do {
-                let fileAttributes = try fileURL.resourceValues(forKeys:[.isRegularFileKey])
+                let fileAttributes = try fileURL.resourceValues(forKeys: [.isRegularFileKey])
                 if fileAttributes.isRegularFile! {
                     count = count + 1
                 }
@@ -194,25 +193,51 @@ func getNumberOfFiles(startingDirectory: URL)  -> Int {
 }
 
 /**
-  * Main entry point for finding dupilicate files.
+ * Main entry point for organizing files by date.
  */
-func findDuplicateFiles(config: FindDuplicatesConfigurationSettings, dupList: FoundFiles, isCancelled: Binding<Bool>) async {
-
-    
+func orgainizeFiles(config: OrganizeFilesConfigurationSettings, isCancelled: Binding<Bool>) async {
     let resourceKeys = Set<URLResourceKey>([.nameKey, .isDirectoryKey])
     let fileManager = FileManager.default
-    var filesCatalog: [String:FileInfo] = [:]
-    var fileSizes: [Int64:[String] ] = [:]
-    var fileNames: [String:[String] ] = [:]
-    var fileChecksums: [String:[String]] = [:]
-    let NOT_YET_DETERMINED: String = "NYD"
-    var checksumValue: String = NOT_YET_DETERMINED
-    
-    if let startingBase = config.selectedDirectory {
-        
+    let destinationBase = config.destinationBaseDirectory!
+
+    if let startingBase = config.startingBaseDirectory {
         let urlResourceKeyArray = Array(resourceKeys)
         let directoryEnumerator = fileManager.enumerator(at: startingBase, includingPropertiesForKeys: urlResourceKeyArray, options: .skipsHiddenFiles)!
-        
+        var fileDestination: URL
+
+        for case let fileURL as URL in directoryEnumerator {
+            if isCancelled.wrappedValue == true {
+                return
+            }
+            do {
+                if isDirectory(url: fileURL) == false {
+                    try fileDestination = getFileDestination(fileURL: fileURL, destinationBase: destinationBase)
+                    try copyFile(at:fileURL, to:fileDestination)
+                }
+            } catch {
+                print("Error processing file at \(fileURL): \(error)")
+            }
+        }
+    }
+}
+
+/**
+ * Main entry point for finding dupilicate files.
+ */
+func findDuplicateFiles(config: FindDuplicatesConfigurationSettings, dupList: FoundFiles, isCancelled: Binding<Bool>) async {
+    let resourceKeys = Set<URLResourceKey>([.nameKey, .isDirectoryKey])
+    let fileManager = FileManager.default
+    var filesCatalog: [String: FileInfo] = [:]
+    var fileSizes: [Int64: [String]] = [:]
+    var fileNames: [String: [String]] = [:]
+    var fileChecksums: [String: [String]] = [:]
+    let NOT_YET_DETERMINED: String = "NYD"
+    var checksumValue: String = NOT_YET_DETERMINED
+
+    if let startingBase = config.selectedDirectory {
+        let urlResourceKeyArray = Array(resourceKeys)
+        let directoryEnumerator = fileManager.enumerator(at: startingBase, includingPropertiesForKeys: urlResourceKeyArray, options: .skipsHiddenFiles)!
+
         for case let fileURL as URL in directoryEnumerator {
             if isCancelled.wrappedValue == true {
                 return
@@ -220,8 +245,6 @@ func findDuplicateFiles(config: FindDuplicatesConfigurationSettings, dupList: Fo
             // if hasAllowedExtension(fileURL: fileURL, allowedExtensions: image_extensions), let bigEnough = try? isBigEnough(fileURL: fileURL, fileManager: fileManager), bigEnough {
             do {
                 if isDirectory(url: fileURL) == false {
-                    
-                       
                     let fileAttribute = try fileManager.attributesOfItem(atPath: fileURL.absoluteURL.path)
                     let fileSize = fileAttribute[FileAttributeKey.size] as! Int64
                     let modDate = fileAttribute[FileAttributeKey.modificationDate] as! Date
@@ -233,10 +256,9 @@ func findDuplicateFiles(config: FindDuplicatesConfigurationSettings, dupList: Fo
                                             dateModified: modDate,
                                             dateCreated: try getFileCreationDate(fileURL: fileURL) ?? Date.distantPast,
                                             size: fileSize)
-                                        
+
                     filesCatalog.updateValue(fileInfo, forKey: fileInfo.id)
-                   
-                    
+
                     // update checksums
                     if config.useChecksum {
                         checksumValue = try getSha256Checksum(forFileAtPath: fileURL) ?? "ERROR"
@@ -244,25 +266,22 @@ func findDuplicateFiles(config: FindDuplicatesConfigurationSettings, dupList: Fo
                         sameChecksumList.append(fileInfo.id)
                         fileChecksums.updateValue(sameChecksumList, forKey: checksumValue)
                     }
-                    
+
                     // update dictionary of files with same size (key: size value: array of files' UUID as String who have same size)
                     var sameFileSizesList = fileSizes[fileSize] ?? []
                     sameFileSizesList.append(fileInfo.id)
                     fileSizes.updateValue(sameFileSizesList, forKey: fileSize)
-                                           
+
                     // update dictionary of files by name (key: filename value: array of files' UUID as String who have same id
                     var sameFileNameList = fileNames[fileInfo.name] ?? []
                     sameFileNameList.append(fileInfo.id)
                     fileNames.updateValue(sameFileNameList, forKey: fileInfo.name)
-                    
-                   
-                        await dupList.insert(fileInfo, location: 0)
-                    
+
+                    await dupList.insert(fileInfo, location: 0)
                 }
             } catch {
                 print("Error processing file at \(fileURL): \(error)")
             }
         }
     }
-    
 }

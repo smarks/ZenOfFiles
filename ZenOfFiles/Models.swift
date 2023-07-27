@@ -31,7 +31,6 @@ struct FindDuplicatesConfigurationSettings  {
   var useFileSize: Bool = false
   var createDeleteFileScript: Bool = false
   var deleteFiles: Bool = false
-  var useSubdirs: Bool = false
   var selectedDirectory: URL?
 }
   
