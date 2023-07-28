@@ -34,3 +34,69 @@ enum DeleteBy: String, CaseIterable, Hashable {
     case oldest = "Oldest"
     case newest = "Newest"
 }
+
+enum NoFiles: Error {
+    case noCurrentFile(String)
+}
+
+/**
+   List of files found by application using specified config values
+ */
+@MainActor
+class DuplicateFiles: ObservableObject {
+    @Published var list: [FileInfo] = []
+
+    func append(_ fileInfo: FileInfo) {
+        list.append(fileInfo)
+    }
+
+    func insert(_ fileInfo: FileInfo, location: Int) {
+        list.insert(fileInfo, at: location)
+    }
+
+    @Published var totalFiles = Float(0.0)
+
+    func totalFiles(_ totalFiles: Float) {
+        self.totalFiles = totalFiles
+    }
+
+    func getCurrentFile() throws -> FileInfo {
+        if let lastElement = list.last {
+            return lastElement
+        } else {
+            throw NoFiles.noCurrentFile("There's no current file; totalFiles() before calling me.")
+        }
+    }
+}
+
+/**
+   List of files found by application using specified config values
+ */
+@MainActor
+class ProcessedFiles: ObservableObject {
+    @Published var list: [URL] = []
+    @Published var messages: [String] = []
+    
+    func append(_ fileInfo: URL) {
+        list.append(fileInfo)
+    }
+
+    func insert(_ fileInfo: URL, location: Int) {
+        list.insert(fileInfo, at: location)
+    }
+
+    @Published var totalFiles = Float(0.0)
+
+    func totalFiles(_ totalFiles: Float) {
+        self.totalFiles = totalFiles
+    }
+    
+    func hasErrors( ) -> Bool {
+        return self.messages.isEmpty
+    }
+    
+    func appendMessage(_ message:String) {
+        messages.append(message)
+    }
+    
+}

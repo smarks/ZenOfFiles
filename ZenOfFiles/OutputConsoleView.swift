@@ -15,7 +15,7 @@ import UniformTypeIdentifiers
  * icons on top row of table for saving, copying etc.
  */
 struct ControlPanel: View {
-    @EnvironmentObject var duplicates: FoundFiles
+    @EnvironmentObject var duplicates: DuplicateFiles
     @ObservedObject var timerManager: TimerManager
 
     var body: some View {
@@ -50,7 +50,7 @@ struct OutputConsoleView: View {
 
     @State private var count = 0
     @State private var selection: String? = ""
-    @EnvironmentObject var duplicates: FoundFiles
+    @EnvironmentObject var duplicates: DuplicateFiles
 
     @State var findDuplicatesConfigurationSettings = FindDuplicatesConfigurationSettings()
     @State private var order = [KeyPathComparator(\FileInfo.id)]

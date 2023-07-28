@@ -12,7 +12,8 @@ import SwiftUI
  * show tabs for each peice of discrect funtionality
  */
 struct ContentView: View {
-    @StateObject var duplicates = FoundFiles()
+    @StateObject var duplicates = DuplicateFiles()
+    @StateObject var processedFiles = ProcessedFiles()
 
     var body: some View {
         TabView {
@@ -25,7 +26,7 @@ struct ContentView: View {
             OrganizeFilesConfigurationView()
                 .tabItem {
                     Label("Organize Files", systemImage: "circle")
-                }
+                }.environmentObject(processedFiles)
         }
         .padding(15)
     }
