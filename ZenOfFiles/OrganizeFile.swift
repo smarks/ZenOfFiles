@@ -25,11 +25,13 @@ struct OrganizeFilesConfigurationView: View {
     @StateObject var timerManager = TimerManager()
 
     var body: some View {
-        VStack(alignment: .leading) {
-            SelectDirectory(selectedDirectory: $organizeFilesConfiguration.startingBaseDirectory,
-                            buttonLabel: "Select Starting Directory").padding(.trailing)
+        Form {
+            OrganizeFileControlPanel(timerManager: timerManager)
 
-            SelectDirectory(selectedDirectory: $organizeFilesConfiguration.destinationBaseDirectory, buttonLabel: "Select Destination Directory").padding(.trailing)
+            SelectDirectory(selectedDirectory: $organizeFilesConfiguration.startingBaseDirectory,
+                            buttonLabel: "Select Starting Directory", directoryLabel: "Starting Directory:").padding(.trailing)
+
+            SelectDirectory(selectedDirectory: $organizeFilesConfiguration.destinationBaseDirectory, buttonLabel: "Select Destination Directory", directoryLabel: "Destination Directory:").padding(.trailing)
 
             Toggle("Include Sub Directories", isOn: $organizeFilesConfiguration.traverse_subdirectories)
                 .toggleStyle(.checkbox)
@@ -66,13 +68,40 @@ struct OrganizeFilesConfigurationView: View {
     }
 }
 
+struct OrganizeFileControlPanel: View {
+    @EnvironmentObject var duplicates: FoundFiles
+    @ObservedObject var timerManager: TimerManager
+
+    var body: some View {
+        HStack {
+            /*
+             // top of table 'control panel'
+             Button {
+                 print("Copy \(duplicates.list.count)")
+
+             } label: {
+                 Image(systemName: "square.and.arrow.down")
+             }
+
+             Button {
+                 print("Save \(duplicates.list.count)")
+                 for item in duplicates.list {
+                     print(item)
+                 }
+             } label: {
+                 Image(systemName: "doc.on.doc")
+             }
+              */
+            //  Text("File Count: \(duplicates.list.count)")
+            TimerDisplayView(timerManager: timerManager)
+        }
+    }
+}
+
 struct OrganizeFilesConfigurationSettings {
     var id = UUID()
     var traverse_subdirectories: Bool = false
     var startingBaseDirectory: URL?
     var destinationBaseDirectory: URL?
     var keepOrignals: Bool = false
-    
-
-
 }

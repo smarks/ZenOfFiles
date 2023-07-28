@@ -212,7 +212,7 @@ func orgainizeFiles(config: OrganizeFilesConfigurationSettings, isCancelled: Bin
             do {
                 if isDirectory(url: fileURL) == false {
                     try fileDestination = getFileDestination(fileURL: fileURL, destinationBase: destinationBase)
-                    try copyFile(at:fileURL, to:fileDestination)
+                    try copyFile(at: fileURL, to: fileDestination)
                 }
             } catch {
                 print("Error processing file at \(fileURL): \(error)")

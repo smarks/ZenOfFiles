@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct SelectDirectory: View {
+
     /**
      * View for selecting a directory
      */
     @Binding var selectedDirectory: URL?
     var buttonLabel: String
+    var directoryLabel: String
 
     var body: some View {
         Button(buttonLabel, action: {
@@ -29,7 +31,7 @@ struct SelectDirectory: View {
         })
 
         if let directory = selectedDirectory {
-            Text("Selected Directory: \(directory.path)")
+            Text("\(directoryLabel): \(directory.path)")
         }
     }
 }

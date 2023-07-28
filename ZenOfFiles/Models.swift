@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct FileInfo: Identifiable {
     let id: String
 
@@ -20,22 +19,18 @@ struct FileInfo: Identifiable {
     let size: Int64
 }
 
- 
-
-
-struct FindDuplicatesConfigurationSettings  {
-  var id = UUID()
-  var traverse_subdirectories: Bool = false
-  var useChecksum: Bool = false
-  var useFileName: Bool = false
-  var useFileSize: Bool = false
-  var createDeleteFileScript: Bool = false
-  var deleteFiles: Bool = false
-  var selectedDirectory: URL?
+struct FindDuplicatesConfigurationSettings {
+    var id = UUID()
+    var traverse_subdirectories: Bool = false
+    var useChecksum: Bool = false
+    var useFileName: Bool = false
+    var useFileSize: Bool = false
+    var createDeleteFileScript: Bool = false
+    var deleteFiles: Bool = false
+    var selectedDirectory: URL?
 }
-  
+
 enum DeleteBy: String, CaseIterable, Hashable {
-  case oldest = "Oldest"
-  case newest = "Newest"
+    case oldest = "Oldest"
+    case newest = "Newest"
 }
-

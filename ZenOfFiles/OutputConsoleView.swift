@@ -14,20 +14,20 @@ import UniformTypeIdentifiers
 /**
  * icons on top row of table for saving, copying etc.
  */
-struct ControlPanel : View  {
+struct ControlPanel: View {
     @EnvironmentObject var duplicates: FoundFiles
-    @ObservedObject  var timerManager : TimerManager
+    @ObservedObject var timerManager: TimerManager
 
     var body: some View {
         HStack {
             // top of table 'control panel'
             Button {
                 print("Copy \(duplicates.list.count)")
-                
+
             } label: {
                 Image(systemName: "square.and.arrow.down")
             }
-            
+
             Button {
                 print("Save \(duplicates.list.count)")
                 for item in duplicates.list {
@@ -38,7 +38,6 @@ struct ControlPanel : View  {
             }
             Text("File Count: \(duplicates.list.count)")
             TimerDisplayView(timerManager: timerManager)
-
         }
     }
 }
@@ -47,22 +46,19 @@ struct ControlPanel : View  {
   * Table the shows found files
  */
 struct OutputConsoleView: View {
-
     private let pastboard = NSPasteboard.general
 
     @State private var count = 0
     @State private var selection: String? = ""
     @EnvironmentObject var duplicates: FoundFiles
- 
+
     @State var findDuplicatesConfigurationSettings = FindDuplicatesConfigurationSettings()
     @State private var order = [KeyPathComparator(\FileInfo.id)]
-    @ObservedObject var timerManager : TimerManager
+    @ObservedObject var timerManager: TimerManager
 
-    
     var body: some View {
         VStack {
-           
-            ControlPanel(timerManager:timerManager)
+            ControlPanel(timerManager: timerManager)
 
             Table(selection: $selection, sortOrder: $order) {
                 TableColumn("Name", value: \.name)
@@ -89,4 +85,3 @@ struct OutputConsoleView: View {
         }.padding(10)
     }
 }
-

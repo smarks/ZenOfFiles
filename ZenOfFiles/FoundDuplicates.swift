@@ -47,7 +47,7 @@ struct FindDuplicationConfigurationView: View {
         HSplitView {
             Form {
                 HStack {
-                    SelectDirectory(selectedDirectory: $findDuplicatesConfigurationSettings.selectedDirectory, buttonLabel: "Select Starting Directory")
+                    SelectDirectory(selectedDirectory: $findDuplicatesConfigurationSettings.selectedDirectory, buttonLabel: "Select Starting Directory", directoryLabel: "Starting Directory")
                 }
                 Toggle("Look into sub directories", isOn: $findDuplicatesConfigurationSettings.traverse_subdirectories)
                     .toggleStyle(.switch)
@@ -98,4 +98,3 @@ struct FindDuplicationConfigurationView: View {
         }
     }
 }
-
