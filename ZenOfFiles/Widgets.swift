@@ -31,7 +31,7 @@ struct SelectDirectory: View {
         })
 
         if let directory = selectedDirectory {
-            Text("\(directoryLabel) \(directory.path)")
+            Text("\(directory.path)")
         }
     }
 }

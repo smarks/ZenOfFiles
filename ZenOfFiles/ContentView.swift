@@ -17,16 +17,16 @@ struct ContentView: View {
 
     var body: some View {
         TabView {
+            OrganizeFilesConfigurationView()
+                .tabItem {
+                    Label("Organize Files", systemImage: "circle")
+                }.environmentObject(processedFiles)
+         
             FindDuplicationConfigurationView()
                 .tabItem {
                     Label("Find Duplicates", systemImage: "circle")
                 }
                 .environmentObject(duplicates)
-
-            OrganizeFilesConfigurationView()
-                .tabItem {
-                    Label("Organize Files", systemImage: "circle")
-                }.environmentObject(processedFiles)
         }
         .padding(15)
     }
