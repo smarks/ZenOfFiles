@@ -7,6 +7,21 @@
 
 import Foundation
 
+enum FileSizes: String, CaseIterable {
+    case KB = "KiloBytes"
+    case MB = "MegaBytes"
+    case GB = "GigaBytes"
+
+}
+
+enum FileTypes: String, CaseIterable {
+    case DEFAULT  = "All"
+    case TXT = "Text"
+    case IMAGE = "Image"
+    case VIDEO = "Video"
+
+}
+
 struct FileInfo: Identifiable {
     let id: String
 
