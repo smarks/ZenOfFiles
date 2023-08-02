@@ -21,6 +21,9 @@
 		2242B4382A55FE5A000CA027 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B4362A55FE5A000CA027 /* Models.swift */; };
 		2242B5292A5B3CAB000CA027 /* OutputConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B5282A5B3CAB000CA027 /* OutputConsoleView.swift */; };
 		2242B52A2A5B3CAB000CA027 /* OutputConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B5282A5B3CAB000CA027 /* OutputConsoleView.swift */; };
+		2251A02C2A79D985001921D8 /* FileFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251A02B2A79D985001921D8 /* FileFilters.swift */; };
+		2251A02E2A79DF25001921D8 /* ConfigureOrganizeFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251A02D2A79DF25001921D8 /* ConfigureOrganizeFiles.swift */; };
+		2251A0302A79E080001921D8 /* ConfigureOrganizeFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251A02D2A79DF25001921D8 /* ConfigureOrganizeFiles.swift */; };
 		2276FE082A7337EF00E0B60F /* OrganizeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2276FE072A7337EF00E0B60F /* OrganizeFile.swift */; };
 		2276FE092A7337EF00E0B60F /* OrganizeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2276FE072A7337EF00E0B60F /* OrganizeFile.swift */; };
 		2276FE0B2A73384700E0B60F /* Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2276FE0A2A73384700E0B60F /* Widgets.swift */; };
@@ -64,6 +67,8 @@
 		2242B4332A55FDEE000CA027 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		2242B4362A55FE5A000CA027 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		2242B5282A5B3CAB000CA027 /* OutputConsoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputConsoleView.swift; sourceTree = "<group>"; };
+		2251A02B2A79D985001921D8 /* FileFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileFilters.swift; sourceTree = "<group>"; };
+		2251A02D2A79DF25001921D8 /* ConfigureOrganizeFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureOrganizeFiles.swift; sourceTree = "<group>"; };
 		2276FE072A7337EF00E0B60F /* OrganizeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizeFile.swift; sourceTree = "<group>"; };
 		2276FE0A2A73384700E0B60F /* Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widgets.swift; sourceTree = "<group>"; };
 		2276FE0D2A73388000E0B60F /* FoundDuplicates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundDuplicates.swift; sourceTree = "<group>"; };
@@ -118,19 +123,13 @@
 		2242B4022A55EBD3000CA027 /* ZenOfFiles */ = {
 			isa = PBXGroup;
 			children = (
-				2242B4072A55EBD4000CA027 /* Assets.xcassets */,
-				2242B4052A55EBD3000CA027 /* ContentView.swift */,
-				2276FE0D2A73388000E0B60F /* FoundDuplicates.swift */,
-				2242B4362A55FE5A000CA027 /* Models.swift */,
-				2276FE072A7337EF00E0B60F /* OrganizeFile.swift */,
-				2242B5282A5B3CAB000CA027 /* OutputConsoleView.swift */,
+				2251A0332A79E139001921D8 /* App */,
+				2251A02F2A79E062001921D8 /* OrganizeFiles */,
+				2251A0322A79E0C4001921D8 /* Shared */,
+				2251A0312A79E0A5001921D8 /* FindDuplicates */,
 				2242B4092A55EBD4000CA027 /* Preview Content */,
-				22E41C782A5CCB780001E11B /* TImerView.swift */,
-				2242B4332A55FDEE000CA027 /* Utilities.swift */,
-				2276FE0A2A73384700E0B60F /* Widgets.swift */,
 				2242B4112A55EBD4000CA027 /* ZenOfFiles.entitlements */,
 				2242B40E2A55EBD4000CA027 /* ZenOfFiles.xcdatamodeld */,
-				2242B4032A55EBD3000CA027 /* ZenOfFilesApp.swift */,
 			);
 			path = ZenOfFiles;
 			sourceTree = "<group>";
@@ -158,6 +157,46 @@
 				2242B4262A55EBD5000CA027 /* ZenOfFilesUITestsLaunchTests.swift */,
 			);
 			path = ZenOfFilesUITests;
+			sourceTree = "<group>";
+		};
+		2251A02F2A79E062001921D8 /* OrganizeFiles */ = {
+			isa = PBXGroup;
+			children = (
+				2251A02D2A79DF25001921D8 /* ConfigureOrganizeFiles.swift */,
+				2276FE072A7337EF00E0B60F /* OrganizeFile.swift */,
+			);
+			path = OrganizeFiles;
+			sourceTree = "<group>";
+		};
+		2251A0312A79E0A5001921D8 /* FindDuplicates */ = {
+			isa = PBXGroup;
+			children = (
+				2276FE0D2A73388000E0B60F /* FoundDuplicates.swift */,
+				2242B5282A5B3CAB000CA027 /* OutputConsoleView.swift */,
+			);
+			path = FindDuplicates;
+			sourceTree = "<group>";
+		};
+		2251A0322A79E0C4001921D8 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				2242B4072A55EBD4000CA027 /* Assets.xcassets */,
+				2251A02B2A79D985001921D8 /* FileFilters.swift */,
+				2242B4362A55FE5A000CA027 /* Models.swift */,
+				22E41C782A5CCB780001E11B /* TImerView.swift */,
+				2242B4332A55FDEE000CA027 /* Utilities.swift */,
+				2276FE0A2A73384700E0B60F /* Widgets.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		2251A0332A79E139001921D8 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				2242B4052A55EBD3000CA027 /* ContentView.swift */,
+				2242B4032A55EBD3000CA027 /* ZenOfFilesApp.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,8 +329,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2251A02C2A79D985001921D8 /* FileFilters.swift in Sources */,
 				2242B4102A55EBD4000CA027 /* ZenOfFiles.xcdatamodeld in Sources */,
 				2242B4062A55EBD3000CA027 /* ContentView.swift in Sources */,
+				2251A02E2A79DF25001921D8 /* ConfigureOrganizeFiles.swift in Sources */,
 				2276FE0B2A73384700E0B60F /* Widgets.swift in Sources */,
 				2276FE0E2A73388000E0B60F /* FoundDuplicates.swift in Sources */,
 				2242B5292A5B3CAB000CA027 /* OutputConsoleView.swift in Sources */,
@@ -310,6 +351,7 @@
 				22E41C7A2A5CCB780001E11B /* TImerView.swift in Sources */,
 				2242B4382A55FE5A000CA027 /* Models.swift in Sources */,
 				2276FE0F2A73388000E0B60F /* FoundDuplicates.swift in Sources */,
+				2251A0302A79E080001921D8 /* ConfigureOrganizeFiles.swift in Sources */,
 				2276FE092A7337EF00E0B60F /* OrganizeFile.swift in Sources */,
 				2242B52A2A5B3CAB000CA027 /* OutputConsoleView.swift in Sources */,
 				2242B4352A55FDEE000CA027 /* Utilities.swift in Sources */,
@@ -461,7 +503,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = ZenOfFiles/ZenOfFiles.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -488,7 +532,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = ZenOfFiles/ZenOfFiles.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;

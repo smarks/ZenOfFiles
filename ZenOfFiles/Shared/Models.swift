@@ -11,20 +11,17 @@ enum FileSizes: String, CaseIterable {
     case KB = "KiloBytes"
     case MB = "MegaBytes"
     case GB = "GigaBytes"
-
 }
 
 enum FileTypes: String, CaseIterable {
-    case DEFAULT  = "All"
+    case DEFAULT = "All"
     case TXT = "Text"
     case IMAGE = "Image"
     case VIDEO = "Video"
-
 }
 
 struct FileInfo: Identifiable {
     let id: String
-
     let name: String
     let path: String
     let url: String
@@ -91,7 +88,7 @@ class DuplicateFiles: ObservableObject {
 class ProcessedFiles: ObservableObject {
     @Published var list: [URL] = []
     @Published var messages: [String] = []
-    
+
     func append(_ fileInfo: URL) {
         list.append(fileInfo)
     }
@@ -105,13 +102,12 @@ class ProcessedFiles: ObservableObject {
     func totalFiles(_ totalFiles: Float) {
         self.totalFiles = totalFiles
     }
-    
-    func hasErrors( ) -> Bool {
-        return self.messages.isEmpty
+
+    func hasErrors() -> Bool {
+        return messages.isEmpty
     }
-    
-    func appendMessage(_ message:String) {
+
+    func appendMessage(_ message: String) {
         messages.append(message)
     }
-    
 }
