@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 struct FileFilterView: View {
-    @State var organizeFilesConfiguration: OrganizeFilesConfigurationSettings = OrganizeFilesConfigurationSettings()
+    @State var organizeFilesConfiguration: OrganizeFilesSettings = OrganizeFilesSettings()
 
-    init(organizeFilesConfiguration: OrganizeFilesConfigurationSettings) {
+    init(organizeFilesConfiguration: OrganizeFilesSettings) {
         self.organizeFilesConfiguration = organizeFilesConfiguration
     }
 

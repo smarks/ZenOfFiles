@@ -10,15 +10,14 @@ import SwiftUI
  * For Organize Files Funcationality - ui not started yet.
  */
 struct OrganizeFilesConfigurationView: View {
+    
     @EnvironmentObject var processedFiles: ProcessedFiles
 
-    @State var startingBaseDirectory: URL?
-    @State var destinationBaseDirectory: URL?
-    @State var organizeFilesConfiguration = OrganizeFilesConfigurationSettings()
-    @State private var selection: String? = ""
-    @State private var order: [KeyPathComparator<FileInfo>] = [
-        .init(\.id, order: SortOrder.forward),
-    ]
+    @State private var isCancelled = false
+    @State private var taskRunning = false
+    
+    @StateObject var timerManager = TimerManager()
+    @StateObject var settings = OrganizeFilesSettings()
 
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -26,21 +25,18 @@ struct OrganizeFilesConfigurationView: View {
         return formatter
     }()
 
-    @State private var isCancelled = false
-    @State private var taskRunning = false
-    @StateObject var timerManager = TimerManager()
-
+    
     var body: some View {
         Form {
             Section {
                 Text("Options").font(Font.title)
-                ConfigureOrganizeFiles(organizeFilesConfiguration: organizeFilesConfiguration)
+                ConfigureOrganizeFiles().environmentObject(settings)
             }
-
+            
             Section {
                 Text("Destination Format").font(Font.title)
                 let format: DestinationFormat = {
-                    DestinationFormat(organizeFilesConfiguration: organizeFilesConfiguration)
+                    DestinationFormat(organizeFilesConfiguration: settings)
                 }()
 
                 Text("\(format.format)")
@@ -51,14 +47,14 @@ struct OrganizeFilesConfigurationView: View {
                     .font(.system(size: 16, design: .monospaced))
                     .padding(.leading).frame(maxWidth: .infinity, alignment: .leading)
 
-                Toggle("Group by year", isOn: $organizeFilesConfiguration.groupByYear).font(Font.title3).toggleStyle(.checkbox)
-                Toggle("Group by month", isOn: $organizeFilesConfiguration.groupByMonth).font(Font.title3).toggleStyle(.checkbox)
-                Toggle("Group by day", isOn: $organizeFilesConfiguration.groupByDay).font(Font.title3).toggleStyle(.checkbox)
+                Toggle("Group by year", isOn: $settings.groupByYear).font(Font.title3).toggleStyle(.checkbox)
+                Toggle("Group by month", isOn: $settings.groupByMonth).font(Font.title3).toggleStyle(.checkbox)
+                Toggle("Group by day", isOn: $settings.groupByDay).font(Font.title3).toggleStyle(.checkbox)
             }
 
             Section {
                 Text("Filters").font(Font.title)
-                FileFilterView(organizeFilesConfiguration: organizeFilesConfiguration)
+                FileFilterView(organizeFilesConfiguration: settings)
             }   
 
             Section("Control") {
@@ -70,22 +66,22 @@ struct OrganizeFilesConfigurationView: View {
                     }.disabled(!taskRunning)
 
                     Button("Start") {
-                        print(organizeFilesConfiguration)
+                        print(settings)
                         processedFiles.list = []
                         Task {
                             isCancelled = false
                             taskRunning = true
                             timerManager.startTimer()
-                            await orgainizeFiles(config: organizeFilesConfiguration, isCancelled: $isCancelled, processedFiles: processedFiles)
+                            await orgainizeFiles(config: settings, isCancelled: $isCancelled, processedFiles: processedFiles)
                             taskRunning = false
                             timerManager.stopTimer()
                             processedFiles.appendMessage("All Done")
                         }
-                    }.disabled(organizeFilesConfiguration.destinationBaseDirectory == nil
+                    }.disabled(settings.destinationBaseDirectory == nil
                         ||
                         taskRunning
                         ||
-                        organizeFilesConfiguration.startingBaseDirectory == nil
+                        settings.startingBaseDirectory == nil
                     )
                 }
             }
@@ -100,11 +96,11 @@ struct OrganizeFilesConfigurationView: View {
 }
 
 struct DestinationFormat {
-    let organizeFilesConfiguration: OrganizeFilesConfigurationSettings
+    let organizeFilesConfiguration: OrganizeFilesSettings
     var format: String = ""
     var example: String = ""
 
-    init(organizeFilesConfiguration: OrganizeFilesConfigurationSettings) {
+    init(organizeFilesConfiguration: OrganizeFilesSettings) {
         self.organizeFilesConfiguration = organizeFilesConfiguration
         let now: Date = Date.now
         let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: now)
@@ -183,41 +179,41 @@ struct OrganizeFileControlPanel: View {
     }
 }
 
-struct OrganizeFilesConfigurationSettings {
-    var id = UUID()
-    var traverse_subdirectories: Bool = false
-    var startingBaseDirectory: URL?
-    var destinationBaseDirectory: URL?
-    var keepOrignals: Bool = false
-    var filter: Bool = false
-    var filterByTypes: Bool = false
-    var filterBySize: Bool = false
-    var filterByDate: Bool = false
-    var beforeDateActive: Bool = false
-    var startDate: Date = Date.now
-    var endDateActive: Bool = false
-    var endDate: Date = Date.now
-    var minFileSizeActive: Bool = false
-    var maxFileSizeActive: Bool = false
-    var minFileSize: Int64 = 0
-    var maxFileSize: Int64 = 0
-    var filterByFileTypes: [FileTypes] = [FileTypes.DEFAULT]
-    var fileType: FileTypes = FileTypes.DEFAULT
+class OrganizeFilesSettings : ObservableObject {
+    @Published var id = UUID()
+    @Published var traverse_subdirectories: Bool = false
+    @Published var startingBaseDirectory: URL?
+    @Published var destinationBaseDirectory: URL?
+    @Published var keepOrignals: Bool = false
+    @Published var filter: Bool = false
+    @Published var filterByTypes: Bool = false
+    @Published var filterBySize: Bool = false
+    @Published var filterByDate: Bool = false
+    @Published var beforeDateActive: Bool = false
+    @Published var startDate: Date = Date.now
+    @Published var endDateActive: Bool = false
+    @Published var endDate: Date = Date.now
+    @Published var minFileSizeActive: Bool = false
+    @Published var maxFileSizeActive: Bool = false
+    @Published var minFileSize: Int64 = 0
+    @Published var maxFileSize: Int64 = 0
+    @Published var filterByFileTypes: [FileTypes] = [FileTypes.DEFAULT]
+    @Published var fileType: FileTypes = FileTypes.DEFAULT
 
-    var groupByDay: Bool = false
-    var groupByMonth: Bool = false
-    var groupByYear: Bool = false
-    var overSameNamedFiles: Bool = false
+    @Published var groupByDay: Bool = false
+    @Published var groupByMonth: Bool = false
+    @Published var groupByYear: Bool = false
+    @Published var overSameNamedFiles: Bool = false
 
-    var useFileType: Bool = false
-    var useFileExtension: Bool = false
-    var skipFIlesWithoutExtensions: Bool = false
+    @Published var useFileType: Bool = false
+    @Published var useFileExtension: Bool = false
+    @Published var skipFIlesWithoutExtensions: Bool = false
 }
 
 /**
  * Main entry point for organizing files by date.
  */
-func orgainizeFiles(config: OrganizeFilesConfigurationSettings, isCancelled: Binding<Bool>, processedFiles: ProcessedFiles) async {
+func orgainizeFiles(config: OrganizeFilesSettings, isCancelled: Binding<Bool>, processedFiles: ProcessedFiles) async {
     let resourceKeys = Set<URLResourceKey>([.nameKey, .isDirectoryKey])
     let fileManager = FileManager.default
     let destinationBase = config.destinationBaseDirectory!

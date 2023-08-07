@@ -36,6 +36,7 @@ struct SelectDirectory: View {
      * View for selecting a directory
      */
     @Binding var selectedDirectory: URL?
+   
     var buttonLabel: String
     var directoryLabel: String
 
@@ -49,6 +50,7 @@ struct SelectDirectory: View {
             dialog.directoryURL = selectedDirectory
 
             if dialog.runModal() == .OK {
+                selectedDirectory = dialog.url
                 selectedDirectory = dialog.url
             }
         })

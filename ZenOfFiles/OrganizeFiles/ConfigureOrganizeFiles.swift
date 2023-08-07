@@ -10,18 +10,15 @@ import SwiftUI
 
 struct ConfigureOrganizeFiles: View {
     
-    @State var organizeFilesConfiguration: OrganizeFilesConfigurationSettings = OrganizeFilesConfigurationSettings()
-    
-    init(organizeFilesConfiguration: OrganizeFilesConfigurationSettings) {
-        self.organizeFilesConfiguration = organizeFilesConfiguration
-    }
-    
+    @EnvironmentObject  var settings: OrganizeFilesSettings
+     
     var body: some View {
        
             HStack {
                 Text("Starting Directory")
                     .font(Font.title3)
-                SelectDirectory(selectedDirectory: $organizeFilesConfiguration.startingBaseDirectory,
+              
+                SelectDirectory(selectedDirectory: $settings.startingBaseDirectory,
                                 buttonLabel: "...", directoryLabel: "Starting Directory:")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.system(size: 16, design: .monospaced))
@@ -30,22 +27,22 @@ struct ConfigureOrganizeFiles: View {
             HStack {
                 Text("Destination Directory")
                     .font(Font.title3)
-                SelectDirectory(selectedDirectory: $organizeFilesConfiguration.destinationBaseDirectory,
+                SelectDirectory(selectedDirectory: $settings.destinationBaseDirectory,
                                 buttonLabel: "...", directoryLabel: "Destination Directory:")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.system(size: 16, design: .monospaced))
             }
             
-            Toggle("Include Sub Directories", isOn: $organizeFilesConfiguration.traverse_subdirectories)
+            Toggle("Include Sub Directories", isOn: $settings.traverse_subdirectories)
                 .toggleStyle(.checkbox)
                 .padding(.trailing)
                 .font(Font.title2)
             
-            Toggle("Don't move files, copy them", isOn: $organizeFilesConfiguration.keepOrignals)
+            Toggle("Don't move files, copy them", isOn: $settings.keepOrignals)
                 .toggleStyle(.checkbox)
                 .font(Font.title2)
             
-            Toggle("Overwrite existing files", isOn: $organizeFilesConfiguration.overSameNamedFiles)
+            Toggle("Overwrite existing files", isOn: $settings.overSameNamedFiles)
                 .toggleStyle(.checkbox)
                 .font(Font.title2)
             
@@ -53,3 +50,4 @@ struct ConfigureOrganizeFiles: View {
        
     }
 }
+
