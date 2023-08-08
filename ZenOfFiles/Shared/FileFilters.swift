@@ -9,11 +9,7 @@ import Foundation
 import SwiftUI
 
 struct FileFilterView: View {
-    @State var organizeFilesConfiguration: OrganizeFilesSettings = OrganizeFilesSettings()
-
-    init(organizeFilesConfiguration: OrganizeFilesSettings) {
-        self.organizeFilesConfiguration = organizeFilesConfiguration
-    }
+    @EnvironmentObject var settings: OrganizeFilesSettings
 
     @State var fileExtension: String = ""
     @State var minFileSizeStr: String = ""
@@ -23,17 +19,17 @@ struct FileFilterView: View {
     var body: some View {
         Section {
             HStack {
-                Toggle("Exclude files before", isOn: $organizeFilesConfiguration.beforeDateActive)
+                Toggle("Exclude files before", isOn: $settings.beforeDateActive)
                     .toggleStyle(.checkbox)
 
-                DatePicker(selection: $organizeFilesConfiguration.startDate, in: ...Date.now, displayedComponents: .date) {
-                }.disabled(organizeFilesConfiguration.beforeDateActive == false)
+                DatePicker(selection: $settings.startDate, in: ...Date.now, displayedComponents: .date) {
+                }.disabled(settings.beforeDateActive == false)
 
-                Toggle("Exclude files after", isOn: $organizeFilesConfiguration.endDateActive)
+                Toggle("Exclude files after", isOn: $settings.endDateActive)
                     .toggleStyle(.checkbox)
 
-                DatePicker(selection: $organizeFilesConfiguration.endDate, in: ...Date.now, displayedComponents: .date) {
-                }.disabled(organizeFilesConfiguration.endDateActive == false)
+                DatePicker(selection: $settings.endDate, in: ...Date.now, displayedComponents: .date) {
+                }.disabled(settings.endDateActive == false)
             }
 
         } header: {
@@ -42,29 +38,29 @@ struct FileFilterView: View {
 
         Section {
             HStack {
-                Toggle("Minimum File Size", isOn: $organizeFilesConfiguration.minFileSizeActive)
+                Toggle("Minimum File Size", isOn: $settings.minFileSizeActive)
                     .toggleStyle(.checkbox)
 
-                NumericTextField(numericText: $minFileSizeStr, amount: $organizeFilesConfiguration.minFileSize)
-                    .disabled(organizeFilesConfiguration.minFileSizeActive == false)
+                NumericTextField(numericText: $minFileSizeStr, amount: $settings.minFileSize)
+                    .disabled(settings.minFileSizeActive == false)
 
-                Picker("", selection: $organizeFilesConfiguration.minFileSize) {
+                Picker("Size Unit", selection: $settings.minFileSizeUnits) {
                     ForEach(FileSizes.allCases, id: \.self) {
                         Text($0.rawValue)
                     }
-                }
+                }.disabled(settings.minFileSizeActive == false)
 
-                Toggle("Maximum File Size", isOn: $organizeFilesConfiguration.maxFileSizeActive)
+                Toggle("Maximum File Size", isOn: $settings.maxFileSizeActive)
                     .toggleStyle(.checkbox)
 
-                NumericTextField(numericText: $maxFileSizeStr, amount: $organizeFilesConfiguration.maxFileSize)
-                    .disabled(organizeFilesConfiguration.minFileSizeActive == false)
+                NumericTextField(numericText: $maxFileSizeStr, amount: $settings.maxFileSize)
+                    .disabled(settings.maxFileSizeActive == false)
 
-                Picker("", selection: $organizeFilesConfiguration.minFileSize) {
+                Picker("Size Unit", selection: $settings.maxFileSizeUnits) {
                     ForEach(FileSizes.allCases, id: \.self) {
                         Text($0.rawValue)
                     }
-                }.disabled(organizeFilesConfiguration.minFileSizeActive == false)
+                }.disabled(settings.maxFileSizeActive == false)
             }
 
         } header: {
@@ -72,11 +68,11 @@ struct FileFilterView: View {
         }
 
         Section {
-            Toggle("Skip files without extensions", isOn: $organizeFilesConfiguration.skipFIlesWithoutExtensions)
+            Toggle("Skip files without extensions", isOn: $settings.skipFIlesWithoutExtensions)
                 .toggleStyle(.checkbox)
                 .padding()
 
-            Toggle("Include file with these extensions", isOn: $organizeFilesConfiguration.useFileExtension)
+            Toggle("Include file with these extensions", isOn: $settings.useFileExtension)
                 .toggleStyle(.checkbox)
                 .padding()
 
@@ -89,17 +85,17 @@ struct FileFilterView: View {
                     fileExtensions.append(fileExtension)
                     print(fileExtensions)
                 }
-            }.disabled(organizeFilesConfiguration.useFileExtension == false)
+            }.disabled(settings.useFileExtension == false)
 
-            Toggle("Use system file type", isOn: $organizeFilesConfiguration.useFileType)
+            Toggle("Use system file type", isOn: $settings.useFileType)
                 .toggleStyle(.checkbox)
 
-            Picker("\(organizeFilesConfiguration.fileType.rawValue)", selection: $organizeFilesConfiguration.fileType) {
+            Picker("\(settings.fileType.rawValue)", selection: $settings.fileType) {
                 ForEach(FileTypes.allCases, id: \.self) {
                     Text($0.rawValue)
                 }
 
-            }.disabled(organizeFilesConfiguration.useFileType == false)
+            }.disabled(settings.useFileType == false)
         } header: {
             Text("By file type")
         }

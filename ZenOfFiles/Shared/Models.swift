@@ -7,13 +7,18 @@
 
 import Foundation
 
-enum FileSizes: String, CaseIterable {
+enum FileSizes: String, CaseIterable,Identifiable {
+    var id: Self { self }
+
+    
     case KB = "KiloBytes"
     case MB = "MegaBytes"
     case GB = "GigaBytes"
 }
 
-enum FileTypes: String, CaseIterable {
+enum FileTypes: String, CaseIterable,Identifiable {
+    var id: Self { self }
+
     case DEFAULT = "All"
     case TXT = "Text"
     case IMAGE = "Image"
@@ -42,7 +47,9 @@ struct FindDuplicatesConfigurationSettings {
     var selectedDirectory: URL?
 }
 
-enum DeleteBy: String, CaseIterable, Hashable {
+enum DeleteBy: String, CaseIterable, Hashable, Identifiable  {
+    var id: Self { self }
+
     case oldest = "Oldest"
     case newest = "Newest"
 }
@@ -110,4 +117,39 @@ class ProcessedFiles: ObservableObject {
     func appendMessage(_ message: String) {
         messages.append(message)
     }
+}
+
+
+
+class OrganizeFilesSettings : ObservableObject {
+    @Published var id = UUID()
+    @Published var traverse_subdirectories: Bool = false
+    @Published var startingBaseDirectory: URL?
+    @Published var destinationBaseDirectory: URL?
+    @Published var keepOrignals: Bool = false
+    @Published var filter: Bool = false
+    @Published var filterByTypes: Bool = false
+    @Published var filterBySize: Bool = false
+    @Published var maxFileSizeUnits = FileSizes.MB
+    @Published var minFileSizeUnits = FileSizes.MB
+    @Published var filterByDate: Bool = false
+    @Published var beforeDateActive: Bool = false
+    @Published var startDate: Date = Date.now
+    @Published var endDateActive: Bool = false
+    @Published var endDate: Date = Date.now
+    @Published var minFileSizeActive: Bool = false
+    @Published var maxFileSizeActive: Bool = false
+    @Published var minFileSize: Int64 = 0
+    @Published var maxFileSize: Int64 = 0
+    @Published var filterByFileTypes: [FileTypes] = [FileTypes.DEFAULT]
+    @Published var fileType: FileTypes = FileTypes.DEFAULT
+
+    @Published var groupByDay: Bool = false
+    @Published var groupByMonth: Bool = false
+    @Published var groupByYear: Bool = false
+    @Published var overSameNamedFiles: Bool = false
+
+    @Published var useFileType: Bool = false
+    @Published var useFileExtension: Bool = false
+    @Published var skipFIlesWithoutExtensions: Bool = false
 }

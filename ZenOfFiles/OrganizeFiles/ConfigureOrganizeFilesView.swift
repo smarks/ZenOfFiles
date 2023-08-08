@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct ConfigureOrganizeFiles: View {
+struct ConfigureOrganizeFilesView: View {
     
     @EnvironmentObject  var settings: OrganizeFilesSettings
      

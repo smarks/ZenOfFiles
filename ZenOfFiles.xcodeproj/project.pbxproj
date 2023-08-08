@@ -22,10 +22,10 @@
 		2242B5292A5B3CAB000CA027 /* OutputConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B5282A5B3CAB000CA027 /* OutputConsoleView.swift */; };
 		2242B52A2A5B3CAB000CA027 /* OutputConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242B5282A5B3CAB000CA027 /* OutputConsoleView.swift */; };
 		2251A02C2A79D985001921D8 /* FileFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251A02B2A79D985001921D8 /* FileFilters.swift */; };
-		2251A02E2A79DF25001921D8 /* ConfigureOrganizeFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251A02D2A79DF25001921D8 /* ConfigureOrganizeFiles.swift */; };
-		2251A0302A79E080001921D8 /* ConfigureOrganizeFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251A02D2A79DF25001921D8 /* ConfigureOrganizeFiles.swift */; };
-		2276FE082A7337EF00E0B60F /* OrganizeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2276FE072A7337EF00E0B60F /* OrganizeFile.swift */; };
-		2276FE092A7337EF00E0B60F /* OrganizeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2276FE072A7337EF00E0B60F /* OrganizeFile.swift */; };
+		2251A02E2A79DF25001921D8 /* ConfigureOrganizeFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251A02D2A79DF25001921D8 /* ConfigureOrganizeFilesView.swift */; };
+		2251A0302A79E080001921D8 /* ConfigureOrganizeFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251A02D2A79DF25001921D8 /* ConfigureOrganizeFilesView.swift */; };
+		2276FE082A7337EF00E0B60F /* OrganizeFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2276FE072A7337EF00E0B60F /* OrganizeFilesView.swift */; };
+		2276FE092A7337EF00E0B60F /* OrganizeFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2276FE072A7337EF00E0B60F /* OrganizeFilesView.swift */; };
 		2276FE0B2A73384700E0B60F /* Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2276FE0A2A73384700E0B60F /* Widgets.swift */; };
 		2276FE0C2A73384700E0B60F /* Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2276FE0A2A73384700E0B60F /* Widgets.swift */; };
 		2276FE0E2A73388000E0B60F /* FoundDuplicates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2276FE0D2A73388000E0B60F /* FoundDuplicates.swift */; };
@@ -68,8 +68,8 @@
 		2242B4362A55FE5A000CA027 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		2242B5282A5B3CAB000CA027 /* OutputConsoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputConsoleView.swift; sourceTree = "<group>"; };
 		2251A02B2A79D985001921D8 /* FileFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileFilters.swift; sourceTree = "<group>"; };
-		2251A02D2A79DF25001921D8 /* ConfigureOrganizeFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureOrganizeFiles.swift; sourceTree = "<group>"; };
-		2276FE072A7337EF00E0B60F /* OrganizeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizeFile.swift; sourceTree = "<group>"; };
+		2251A02D2A79DF25001921D8 /* ConfigureOrganizeFilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureOrganizeFilesView.swift; sourceTree = "<group>"; };
+		2276FE072A7337EF00E0B60F /* OrganizeFilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizeFilesView.swift; sourceTree = "<group>"; };
 		2276FE0A2A73384700E0B60F /* Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widgets.swift; sourceTree = "<group>"; };
 		2276FE0D2A73388000E0B60F /* FoundDuplicates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundDuplicates.swift; sourceTree = "<group>"; };
 		22E41C782A5CCB780001E11B /* TImerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TImerView.swift; sourceTree = "<group>"; };
@@ -162,8 +162,8 @@
 		2251A02F2A79E062001921D8 /* OrganizeFiles */ = {
 			isa = PBXGroup;
 			children = (
-				2251A02D2A79DF25001921D8 /* ConfigureOrganizeFiles.swift */,
-				2276FE072A7337EF00E0B60F /* OrganizeFile.swift */,
+				2251A02D2A79DF25001921D8 /* ConfigureOrganizeFilesView.swift */,
+				2276FE072A7337EF00E0B60F /* OrganizeFilesView.swift */,
 			);
 			path = OrganizeFiles;
 			sourceTree = "<group>";
@@ -332,7 +332,7 @@
 				2251A02C2A79D985001921D8 /* FileFilters.swift in Sources */,
 				2242B4102A55EBD4000CA027 /* ZenOfFiles.xcdatamodeld in Sources */,
 				2242B4062A55EBD3000CA027 /* ContentView.swift in Sources */,
-				2251A02E2A79DF25001921D8 /* ConfigureOrganizeFiles.swift in Sources */,
+				2251A02E2A79DF25001921D8 /* ConfigureOrganizeFilesView.swift in Sources */,
 				2276FE0B2A73384700E0B60F /* Widgets.swift in Sources */,
 				2276FE0E2A73388000E0B60F /* FoundDuplicates.swift in Sources */,
 				2242B5292A5B3CAB000CA027 /* OutputConsoleView.swift in Sources */,
@@ -340,7 +340,7 @@
 				2242B4342A55FDEE000CA027 /* Utilities.swift in Sources */,
 				22E41C792A5CCB780001E11B /* TImerView.swift in Sources */,
 				2242B4042A55EBD3000CA027 /* ZenOfFilesApp.swift in Sources */,
-				2276FE082A7337EF00E0B60F /* OrganizeFile.swift in Sources */,
+				2276FE082A7337EF00E0B60F /* OrganizeFilesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,8 +351,8 @@
 				22E41C7A2A5CCB780001E11B /* TImerView.swift in Sources */,
 				2242B4382A55FE5A000CA027 /* Models.swift in Sources */,
 				2276FE0F2A73388000E0B60F /* FoundDuplicates.swift in Sources */,
-				2251A0302A79E080001921D8 /* ConfigureOrganizeFiles.swift in Sources */,
-				2276FE092A7337EF00E0B60F /* OrganizeFile.swift in Sources */,
+				2251A0302A79E080001921D8 /* ConfigureOrganizeFilesView.swift in Sources */,
+				2276FE092A7337EF00E0B60F /* OrganizeFilesView.swift in Sources */,
 				2242B52A2A5B3CAB000CA027 /* OutputConsoleView.swift in Sources */,
 				2242B4352A55FDEE000CA027 /* Utilities.swift in Sources */,
 				2276FE0C2A73384700E0B60F /* Widgets.swift in Sources */,

@@ -30,7 +30,7 @@ struct OrganizeFilesConfigurationView: View {
         Form {
             Section {
                 Text("Options").font(Font.title)
-                ConfigureOrganizeFiles().environmentObject(settings)
+                ConfigureOrganizeFilesView().environmentObject(settings)
             }
             
             Section {
@@ -54,7 +54,7 @@ struct OrganizeFilesConfigurationView: View {
 
             Section {
                 Text("Filters").font(Font.title)
-                FileFilterView(organizeFilesConfiguration: settings)
+                FileFilterView().environmentObject(settings)
             }   
 
             Section("Control") {
@@ -140,24 +140,7 @@ struct OrganizeFileControlPanel: View {
 
     var body: some View {
         HStack {
-            /*
-             // top of table 'control panel'
-             Button {
-                 print("Copy \(duplicates.list.count)")
-
-             } label: {
-                 Image(systemName: "square.and.arrow.down")
-             }
-
-             Button {
-                 print("Save \(duplicates.list.count)")
-                 for item in duplicates.list {
-                     print(item)
-                 }
-             } label: {
-                 Image(systemName: "doc.on.doc")
-             }
-              */
+          
             Text("File Count: \(processedFiles.list.count)")
             TimerDisplayView(timerManager: timerManager)
         }
@@ -179,36 +162,6 @@ struct OrganizeFileControlPanel: View {
     }
 }
 
-class OrganizeFilesSettings : ObservableObject {
-    @Published var id = UUID()
-    @Published var traverse_subdirectories: Bool = false
-    @Published var startingBaseDirectory: URL?
-    @Published var destinationBaseDirectory: URL?
-    @Published var keepOrignals: Bool = false
-    @Published var filter: Bool = false
-    @Published var filterByTypes: Bool = false
-    @Published var filterBySize: Bool = false
-    @Published var filterByDate: Bool = false
-    @Published var beforeDateActive: Bool = false
-    @Published var startDate: Date = Date.now
-    @Published var endDateActive: Bool = false
-    @Published var endDate: Date = Date.now
-    @Published var minFileSizeActive: Bool = false
-    @Published var maxFileSizeActive: Bool = false
-    @Published var minFileSize: Int64 = 0
-    @Published var maxFileSize: Int64 = 0
-    @Published var filterByFileTypes: [FileTypes] = [FileTypes.DEFAULT]
-    @Published var fileType: FileTypes = FileTypes.DEFAULT
-
-    @Published var groupByDay: Bool = false
-    @Published var groupByMonth: Bool = false
-    @Published var groupByYear: Bool = false
-    @Published var overSameNamedFiles: Bool = false
-
-    @Published var useFileType: Bool = false
-    @Published var useFileExtension: Bool = false
-    @Published var skipFIlesWithoutExtensions: Bool = false
-}
 
 /**
  * Main entry point for organizing files by date.
