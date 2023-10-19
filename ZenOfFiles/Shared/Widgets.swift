@@ -14,8 +14,8 @@ struct NumericTextField: View {
     
     var body: some View {
         TextField("", text: $numericText)
-            .onChange(of: numericText) { newValue in
-                numericText = filterNumericText(from: newValue)
+            .onChange(of: numericText ) {
+                numericText = filterNumericText(from: numericText)
                 amount = Int64(numericText) ??  0
             }.background(Color.white).padding(.trailing).font(Font.body)
 

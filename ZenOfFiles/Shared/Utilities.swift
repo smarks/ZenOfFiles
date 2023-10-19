@@ -23,7 +23,7 @@ func hasAllowedExtension(fileURL: URL, allowedExtensions: [String]) -> Bool {
 /**
   * Copy file creating destination directory if it does not already exist.
  */
-func copyFile(at sourceURL: URL, to destinationURL: URL) throws {
+func copyFile(at sourceURL: URL, to destinationURL: URL, deleteOriginal:Bool) throws {
     let fileManager = FileManager.default
 
     // Create the destination directory if it does not already exist
@@ -33,6 +33,11 @@ func copyFile(at sourceURL: URL, to destinationURL: URL) throws {
 
     // Copy the file to the destination
     try fileManager.copyItem(at: sourceURL, to: destinationURL)
+    
+    // delete the file after copy if that's what the caller wants. 
+    if (deleteOriginal) {
+        try fileManager.removeItem(at: sourceURL)
+    }
 }
 
 /**

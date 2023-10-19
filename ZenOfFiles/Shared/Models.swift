@@ -7,10 +7,16 @@
 
 import Foundation
 
+enum CopyOrMoveFile: String, CaseIterable,Identifiable {
+    var id: Self { self }
+
+    case MOVE = "Move"
+    case COPY = "Copy"
+}
+
 enum FileSizes: String, CaseIterable,Identifiable {
     var id: Self { self }
 
-    
     case KB = "KiloBytes"
     case MB = "MegaBytes"
     case GB = "GigaBytes"
@@ -61,7 +67,7 @@ enum NoFiles: Error {
 /**
    List of files found by application using specified config values
  */
-@MainActor
+//@MainActor
 class DuplicateFiles: ObservableObject {
     @Published var list: [FileInfo] = []
 
@@ -91,7 +97,7 @@ class DuplicateFiles: ObservableObject {
 /**
    List of files found by application using specified config values
  */
-@MainActor
+//@MainActor
 class ProcessedFiles: ObservableObject {
     @Published var list: [URL] = []
     @Published var messages: [String] = []
@@ -120,19 +126,20 @@ class ProcessedFiles: ObservableObject {
 }
 
 
-
 class OrganizeFilesSettings : ObservableObject {
     @Published var id = UUID()
-    @Published var traverse_subdirectories: Bool = false
+
+    @Published var skipsHiddenFiles: Bool = true
     @Published var startingBaseDirectory: URL?
     @Published var destinationBaseDirectory: URL?
-    @Published var keepOrignals: Bool = false
-    @Published var filter: Bool = false
-    @Published var filterByTypes: Bool = false
-    @Published var filterBySize: Bool = false
+    @Published var traverse_subdirectories: Bool = true
+    @Published var copyOrMoveFile = CopyOrMoveFile.COPY
+    @Published var overwriteSameNamedFiles: Bool = false
+    @Published var overwriteSameNamedFilesOnlyIfIdentical: Bool = false
+    @Published var overwriteSameSizedFiles: Bool = false
+    @Published var overwriteSameSizedFilesOnlyIfIdentical: Bool = false
     @Published var maxFileSizeUnits = FileSizes.MB
     @Published var minFileSizeUnits = FileSizes.MB
-    @Published var filterByDate: Bool = false
     @Published var beforeDateActive: Bool = false
     @Published var startDate: Date = Date.now
     @Published var endDateActive: Bool = false
@@ -143,13 +150,10 @@ class OrganizeFilesSettings : ObservableObject {
     @Published var maxFileSize: Int64 = 0
     @Published var filterByFileTypes: [FileTypes] = [FileTypes.DEFAULT]
     @Published var fileType: FileTypes = FileTypes.DEFAULT
-
     @Published var groupByDay: Bool = false
     @Published var groupByMonth: Bool = false
     @Published var groupByYear: Bool = false
-    @Published var overSameNamedFiles: Bool = false
-
     @Published var useFileType: Bool = false
     @Published var useFileExtension: Bool = false
-    @Published var skipFIlesWithoutExtensions: Bool = false
+    @Published var skipFilesWithoutExtensions: Bool = false
 }

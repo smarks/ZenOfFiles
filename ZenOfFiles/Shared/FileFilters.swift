@@ -12,8 +12,8 @@ struct FileFilterView: View {
     @EnvironmentObject var settings: OrganizeFilesSettings
 
     @State var fileExtension: String = ""
-    @State var minFileSizeStr: String = ""
-    @State var maxFileSizeStr: String = ""
+    @State var minFileSizeStr: String = "0"
+    @State var maxFileSizeStr: String = "1000"
     @State var fileExtensions: [String] = []
 
     var body: some View {
@@ -42,7 +42,9 @@ struct FileFilterView: View {
                     .toggleStyle(.checkbox)
 
                 NumericTextField(numericText: $minFileSizeStr, amount: $settings.minFileSize)
-                    .disabled(settings.minFileSizeActive == false)
+                    .disabled(settings.minFileSizeActive == false).onSubmit {
+                        settings.minFileSize = Int64(minFileSizeStr) ?? 0
+                    }
 
                 Picker("Size Unit", selection: $settings.minFileSizeUnits) {
                     ForEach(FileSizes.allCases, id: \.self) {
@@ -54,7 +56,9 @@ struct FileFilterView: View {
                     .toggleStyle(.checkbox)
 
                 NumericTextField(numericText: $maxFileSizeStr, amount: $settings.maxFileSize)
-                    .disabled(settings.maxFileSizeActive == false)
+                    .disabled(settings.maxFileSizeActive == false).onSubmit {
+                        settings.maxFileSize = Int64(maxFileSizeStr) ?? 0
+                    }
 
                 Picker("Size Unit", selection: $settings.maxFileSizeUnits) {
                     ForEach(FileSizes.allCases, id: \.self) {
@@ -68,7 +72,7 @@ struct FileFilterView: View {
         }
 
         Section {
-            Toggle("Skip files without extensions", isOn: $settings.skipFIlesWithoutExtensions)
+            Toggle("Skip files without extensions", isOn: $settings.skipFilesWithoutExtensions)
                 .toggleStyle(.checkbox)
                 .padding()
 

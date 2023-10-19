@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-
+//@MainActor
 struct FindDuplicationConfigurationView: View {
     @EnvironmentObject var duplicates: DuplicateFiles
     @State var findDuplicatesConfigurationSettings = FindDuplicatesConfigurationSettings()
@@ -65,7 +65,7 @@ struct FindDuplicationConfigurationView: View {
                             isCancelled = false
                             taskRunning = true
                             timerManager.startTimer()
-                            await findDuplicateFiles(config: findDuplicatesConfigurationSettings, dupList: duplicates, isCancelled: $isCancelled)
+                          //  await findDuplicateFiles(config: findDuplicatesConfigurationSettings, dupList: duplicates, isCancelled: isCancelled)
                             taskRunning = false
                         }
                     }.disabled(findDuplicatesConfigurationSettings.selectedDirectory == nil || taskRunning)
@@ -74,7 +74,7 @@ struct FindDuplicationConfigurationView: View {
             }.formStyle(.grouped)
 
             OutputConsoleView(timerManager: timerManager)
-        }
+        } 
     }
 }
 
@@ -135,7 +135,7 @@ func findDuplicateFiles(config: FindDuplicatesConfigurationSettings, dupList: Du
                     sameFileNameList.append(fileInfo.id)
                     fileNames.updateValue(sameFileNameList, forKey: fileInfo.name)
 
-                    await dupList.insert(fileInfo, location: 0)
+                    dupList.insert(fileInfo, location: 0)
                 }
             } catch {
                 print("Error processing file at \(fileURL): \(error)")
